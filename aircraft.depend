@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1324469659 source:/home/tiago/Pessoal/PENDRIVE/Projetos/C++/aircraft/src/main.cpp
+	"main.h"
+
+1324468799 /home/tiago/Pessoal/PENDRIVE/Projetos/C++/aircraft/src/main.h
+	<string>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<SDL/SDL_ttf.h>
+
