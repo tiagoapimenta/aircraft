@@ -8,7 +8,7 @@ class Image;
 class Screen
 {
 public:
-	static Screen& getInstance();
+	Screen();
 
 	void blitImage(int x, int y, Image &source);
 	void clear();
@@ -17,10 +17,7 @@ public:
 protected:
 
 private:
-	static Screen *instance;
 	SDL_Surface *screen;
-
-	Screen();
 };
 
 #endif // SCREEN_H

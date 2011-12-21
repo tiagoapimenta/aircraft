@@ -8,9 +8,9 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
+#include "application.h"
 #include "image.h"
 #include "screen.h"
-#include "util.h"
 #include "event.h"
 
 #define SCREEN_WIDTH 640

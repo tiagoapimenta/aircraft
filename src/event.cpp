@@ -1,17 +1,8 @@
 #include "event.h"
 
-Event *Event::instance = NULL;
-
 Event::Event()
 {
 	//ctor
-}
-
-Event& Event::getInstance()
-{
-	if (!instance) instance = new Event();
-
-	return *instance;
 }
 
 bool Event::poll()
