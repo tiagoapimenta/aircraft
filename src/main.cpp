@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
 	SDL_FreeSurface(aircaft);
 
-	util.close();
+	util.quit();
 	return 0;
 }
 

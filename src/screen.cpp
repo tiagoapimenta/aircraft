@@ -4,8 +4,9 @@ Screen *Screen::instance = NULL;
 
 Screen::Screen()
 {
-	SDL_Init(SDL_INIT_VIDEO);
+	if (SDL_Init(SDL_INIT_VIDEO) == -1) throw "Couldn't init video.";
 	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE | SDL_DOUBLEBUF);
+	if (screen == NULL) throw "Couldn't create a video surface.";
 	SDL_WM_SetCaption(SCREEN_TITLE, NULL);
 }
 

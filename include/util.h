@@ -11,7 +11,7 @@ public:
 	SDL_Surface *loadImage(std::string filename);
 	void startCounter();
 	void waitFPS();
-	void close();
+	void quit();
 
 protected:
 

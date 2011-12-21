@@ -45,7 +45,7 @@ void Util::waitFPS()
 	timer += elapsed_time;
 }
 
-void Util::close()
+void Util::quit()
 {
 	SDL_Quit();
 }
