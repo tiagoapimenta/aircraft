@@ -17,14 +17,14 @@ Screen& Screen::getInstance()
 	return *instance;
 }
 
-void Screen::blitSurface(int x, int y, SDL_Surface *source)
+void Screen::blitImage(int x, int y, Image &source)
 {
 	SDL_Rect offset;
 
 	offset.x = x;
 	offset.y = y;
 
-	SDL_BlitSurface(source, NULL, screen, &offset);
+	SDL_BlitSurface(source.getSurface(), NULL, screen, &offset);
 }
 
 void Screen::clear()

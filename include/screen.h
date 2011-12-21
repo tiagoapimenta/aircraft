@@ -3,12 +3,14 @@
 
 #include "core.h"
 
+class Image;
+
 class Screen
 {
 public:
 	static Screen& getInstance();
 
-	void blitSurface(int x, int y, SDL_Surface *source);
+	void blitImage(int x, int y, Image &source);
 	void clear();
 	void render();
 
