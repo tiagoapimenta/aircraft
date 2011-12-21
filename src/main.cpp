@@ -7,22 +7,13 @@ int main(int argc, char *argv[])
 	Event event = Event::getInstance();
 	Image *aircaft = NULL;
 
-	bool quit = false;
-
 	aircaft = new Image(IMG_NAVE);
 
 	util.startCounter();
 
-	while (!quit)
+	while (event.poll())
 	{
-		// Events
-		if (!event.poll())
-		{
-			quit = true;
-			break;
-		}
-
-		// Logic
+		// Logic?
 
 		// Rendering
 		screen.clear();
