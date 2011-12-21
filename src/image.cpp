@@ -22,7 +22,7 @@ Image::~Image()
 	SDL_FreeSurface(image);
 }
 
-const SDL_Surface *Image::getSurface()
+SDL_Surface *Image::getSurface()
 {
 	return image;
 }

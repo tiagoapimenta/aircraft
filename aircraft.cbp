@@ -5,7 +5,6 @@
 		<Option title="aircraft" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="include/;" />
 		<Build>
 			<Target title="Default">
 				<Option output="bin/aircraft" prefix_auto="1" extension_auto="1" />
@@ -22,17 +21,20 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="`sdl-config --cflags`" />
+			<Add option="`sdl-config --cflags` -Iinclude" />
 		</Compiler>
 		<Linker>
 			<Add option="`sdl-config --libs` -lSDL_image -lSDL_ttf" />
 		</Linker>
+		<Unit filename="include/core.h" />
+		<Unit filename="include/event.h" />
+		<Unit filename="include/image.h" />
+		<Unit filename="include/main.h" />
 		<Unit filename="include/screen.h" />
 		<Unit filename="include/util.h" />
+		<Unit filename="src/event.cpp" />
+		<Unit filename="src/image.cpp" />
 		<Unit filename="src/main.cpp" />
-		<Unit filename="src/main.h">
-			<Option virtualFolder="include/" />
-		</Unit>
 		<Unit filename="src/screen.cpp" />
 		<Unit filename="src/util.cpp" />
 		<Extensions>

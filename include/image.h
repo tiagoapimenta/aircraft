@@ -5,14 +5,14 @@
 
 class Image
 {
-	public:
-		Image(std::string filename);
-		~Image();
-		const SDL_Surface *getSurface();
+public:
+	Image(std::string filename);
+	~Image();
+	SDL_Surface *getSurface();
 
-	protected:
-	private:
-		SDL_Surface *image;
+protected:
+private:
+	SDL_Surface *image;
 };
 
 #endif // IMAGE_H
