@@ -4,8 +4,8 @@ Application *Application::instance = NULL;
 
 Application::Application()
 {
-	screen = new Screen();
-	event = new Event();
+	screen = &Screen::getInstance();
+	event = &Event::getInstance();
 }
 
 Application& Application::getInstance()
@@ -36,9 +36,6 @@ int Application::gameLoop()
 	}
 
 	delete aircaft;
-
-	delete screen;
-	delete event;
 
 	quit();
 

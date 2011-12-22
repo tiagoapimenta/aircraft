@@ -6,11 +6,15 @@
 class Event
 {
 public:
-	Event();
+	static Event& getInstance();
+
 	bool poll();
 
 protected:
 private:
+	static Event *instance;
+
+	Event();
 };
 
 #endif // EVENT_H

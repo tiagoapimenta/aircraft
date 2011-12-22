@@ -26,17 +26,17 @@
 		<Linker>
 			<Add option="`sdl-config --libs` -lSDL_image -lSDL_ttf" />
 		</Linker>
+		<Unit filename="include/application.h" />
 		<Unit filename="include/core.h" />
 		<Unit filename="include/event.h" />
 		<Unit filename="include/image.h" />
 		<Unit filename="include/main.h" />
 		<Unit filename="include/screen.h" />
-		<Unit filename="include/util.h" />
+		<Unit filename="src/application.cpp" />
 		<Unit filename="src/event.cpp" />
 		<Unit filename="src/image.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/screen.cpp" />
-		<Unit filename="src/util.cpp" />
 		<Extensions>
 			<envvars />
 			<code_completion />
