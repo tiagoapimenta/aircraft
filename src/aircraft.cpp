@@ -6,13 +6,19 @@ Aircraft::Aircraft(Application *application)
 	aircraft = new Image(IMG_AIRCRAFT);
 	aircraft_left = new Image(IMG_AIRCRAFT_LEFT);
 	aircraft_right = new Image(IMG_AIRCRAFT_RIGHT);
+	fire1 = new Image(IMG_FIRE1);
+	fire2 = new Image(IMG_FIRE2);
 	width = aircraft->getWidth();
 	height = aircraft->getHeight();
+	fire_width = fire1->getWidth();
+	fire_height = fire1->getHeight();
 	left = (SCREEN_WIDTH - width) / 2;
-	top = SCREEN_HEIGHT - height - 10;
+	top = SCREEN_HEIGHT - height - fire_height - 10;
 	move_top = move_left = 0;
 	application->getEvent()->addKeyEvent(this);
 	current_aircraft = aircraft;
+	current_fire = fire1;
+	fire_index = 0;
 }
 
 Aircraft::~Aircraft()
@@ -21,12 +27,14 @@ Aircraft::~Aircraft()
 	delete aircraft;
 	delete aircraft_left;
 	delete aircraft_right;
+	delete fire1;
+	delete fire2;
 }
 
 void Aircraft::update()
 {
-	left += move_left;
-	top += move_top;
+	left += move_left * AIRCRAFT_SPEED;
+	top += move_top * AIRCRAFT_SPEED;
 	if (left < 0)
 	{
 		left = 0;
@@ -39,32 +47,36 @@ void Aircraft::update()
 	{
 		top = 0;
 	}
-	else if (top > SCREEN_HEIGHT - height)
+	else if (top > SCREEN_HEIGHT - height - fire_height)
 	{
-		top = SCREEN_HEIGHT - height;
+		top = SCREEN_HEIGHT - height - fire_height;
 	}
+	current_fire = (fire_index / FIRE_LOOP == 0) ? fire1 : fire2;
+	fire_index++;
+	if (fire_index >= 2 * FIRE_LOOP) fire_index = 0;
 }
 
 void Aircraft::draw()
 {
 	application->getScreen()->blitImage(left, top, current_aircraft);
+	application->getScreen()->blitImage(left + (width - fire_width) / 2 + move_left * FIRE_OFFSET, top + height, current_fire);
 }
 
 void Aircraft::keyDown(SDLKey key)
 {
 	switch (key) {
 	case SDLK_UP:
-		move_top = -1 * AIRCRAFT_SPEED;
+		move_top = -1;
 		break;
 	case SDLK_DOWN:
-		move_top = 1 * AIRCRAFT_SPEED;
+		move_top = 1;
 		break;
 	case SDLK_LEFT:
-		move_left = -1 * AIRCRAFT_SPEED;
+		move_left = -1;
 		current_aircraft = aircraft_left;
 		break;
 	case SDLK_RIGHT:
-		move_left = 1 * AIRCRAFT_SPEED;
+		move_left = 1;
 		current_aircraft = aircraft_right;
 		break;
 	default:

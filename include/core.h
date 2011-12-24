@@ -16,8 +16,8 @@
 #include "event.h"
 #include "aircraft.h"
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 240
 #define SCREEN_BPP 32
 #define FRAMES_PER_SECOND 40
 #define TIME_PER_FRAME (1000 / FRAMES_PER_SECOND)
@@ -27,5 +27,8 @@
 #define IMG_AIRCRAFT "media/images/aircraft.png"
 #define IMG_AIRCRAFT_RIGHT "media/images/aircraft-right.png"
 #define IMG_AIRCRAFT_LEFT "media/images/aircraft-left.png"
+
+#define IMG_FIRE1 "media/images/fire1.png"
+#define IMG_FIRE2 "media/images/fire2.png"
 
 #endif

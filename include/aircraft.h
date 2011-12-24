@@ -4,6 +4,8 @@
 #include "core.h"
 
 #define AIRCRAFT_SPEED 2
+#define FIRE_LOOP 5
+#define FIRE_OFFSET 2
 
 class Application;
 
@@ -22,8 +24,12 @@ protected:
 private:
 	Application* application;
 	Image *aircraft, *aircraft_left, *aircraft_right, *current_aircraft;
+	Image *fire1, *fire2, *current_fire;
 	int width;
 	int height;
+	int fire_width;
+	int fire_height;
+	int fire_index;
 	int left;
 	int top;
 	int move_top;
