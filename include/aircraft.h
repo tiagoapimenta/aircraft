@@ -3,7 +3,7 @@
 
 #include "core.h"
 
-#define AIRCRAFT_SPEED 2
+#define AIRCRAFT_SPEED 4
 #define FIRE_LOOP 5
 #define FIRE_OFFSET 2
 
@@ -23,6 +23,8 @@ public:
 protected:
 private:
 	Application* application;
+	Screen* screen;
+	Event* event;
 	Image *aircraft, *aircraft_left, *aircraft_right, *current_aircraft;
 	Image *fire1, *fire2, *current_fire;
 	int width;

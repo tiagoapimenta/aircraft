@@ -3,27 +3,39 @@
 Aircraft::Aircraft(Application *application)
 {
 	this->application = application;
+	screen = application->getScreen();
+	event = application->getEvent();
+
 	aircraft = new Image(IMG_AIRCRAFT);
 	aircraft_left = new Image(IMG_AIRCRAFT_LEFT);
 	aircraft_right = new Image(IMG_AIRCRAFT_RIGHT);
 	fire1 = new Image(IMG_FIRE1);
 	fire2 = new Image(IMG_FIRE2);
+
 	width = aircraft->getWidth();
 	height = aircraft->getHeight();
 	fire_width = fire1->getWidth();
 	fire_height = fire1->getHeight();
+
 	left = (SCREEN_WIDTH - width) / 2;
 	top = SCREEN_HEIGHT - height - fire_height - 10;
 	move_top = move_left = 0;
-	application->getEvent()->addKeyEvent(this);
+	fire_index = 0;
+
 	current_aircraft = aircraft;
 	current_fire = fire1;
-	fire_index = 0;
+
+	event->addKeyEvent(this);
+	event->addUpdater(this);
+	screen->addDrawer(1, this);
 }
 
 Aircraft::~Aircraft()
 {
-	application->getEvent()->removeKeyEvent(this);
+	event->removeKeyEvent(this);
+	event->removeUpdater(this);
+	screen->removeDrawer(1, this);
+
 	delete aircraft;
 	delete aircraft_left;
 	delete aircraft_right;
@@ -58,8 +70,8 @@ void Aircraft::update()
 
 void Aircraft::draw()
 {
-	application->getScreen()->blitImage(left, top, current_aircraft);
-	application->getScreen()->blitImage(left + (width - fire_width) / 2 + move_left * FIRE_OFFSET, top + height, current_fire);
+	screen->blitImage(left, top, current_aircraft);
+	screen->blitImage(left + (width - fire_width) / 2 + move_left * FIRE_OFFSET, top + height, current_fire);
 }
 
 void Aircraft::keyDown(SDLKey key)

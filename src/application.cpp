@@ -23,12 +23,8 @@ int Application::gameLoop()
 
 	while (event->poll())
 	{
-		// Logic?
-		aircraft->update();
-
 		// Rendering
 		screen->clear();
-		aircraft->draw();
 		screen->render();
 
 		waitFPS();

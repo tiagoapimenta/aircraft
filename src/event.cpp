@@ -48,6 +48,12 @@ bool Event::poll()
 		}
 	}
 
+	int length = updaters.size();
+	for (int i = 0; i < length; i++)
+	{
+		updaters[i]->update();
+	}
+
 	return !quit;
 }
 
@@ -63,6 +69,23 @@ void Event::removeKeyEvent(IKeyEventHandleable *keyEvent)
 		if (*it == keyEvent)
 		{
 			keyEvents.erase(it);
+			break;
+		}
+	}
+}
+
+void Event::addUpdater(IUpdatable *updater)
+{
+	updaters.push_back(updater);
+}
+
+void Event::removeUpdater(IUpdatable *updater)
+{
+	for (std::vector<IUpdatable*>::iterator it = updaters.begin() ; it < updaters.end(); it++ )
+	{
+		if (*it == updater)
+		{
+			updaters.erase(it);
 			break;
 		}
 	}
