@@ -8,9 +8,9 @@ class Image;
 class Screen
 {
 public:
-	static Screen& getInstance();
+	static Screen* getInstance();
 
-	void blitImage(int x, int y, Image &source);
+	void blitImage(int x, int y, Image *source);
 	void clear();
 	void render();
 

@@ -2,8 +2,8 @@
 
 int main(int argc, char *argv[])
 {
-	Application application = Application::getInstance();
+	Application *application = Application::getInstance();
 
-	return application.gameLoop();
+	return application->gameLoop();
 }
 

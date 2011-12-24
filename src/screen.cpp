@@ -8,23 +8,24 @@ Screen::Screen()
 	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE | SDL_DOUBLEBUF);
 	if (screen == NULL) throw "Couldn't create a video surface.";
 	SDL_WM_SetCaption(SCREEN_TITLE, NULL);
+	SDL_ShowCursor(SDL_DISABLE);
 }
 
-Screen& Screen::getInstance()
+Screen* Screen::getInstance()
 {
 	if (!instance) instance = new Screen();
 
-	return *instance;
+	return instance;
 }
 
-void Screen::blitImage(int x, int y, Image &source)
+void Screen::blitImage(int x, int y, Image *source)
 {
 	SDL_Rect offset;
 
 	offset.x = x;
 	offset.y = y;
 
-	SDL_BlitSurface(source.getSurface(), NULL, screen, &offset);
+	SDL_BlitSurface(source->getSurface(), NULL, screen, &offset);
 }
 
 void Screen::clear()

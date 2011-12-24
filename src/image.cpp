@@ -6,14 +6,13 @@ Image::Image(std::string filename)
 
 	image = IMG_Load(filename.c_str());
 
-	if (image != NULL)
-	{
-		otimized = SDL_DisplayFormat(image);
+	if (image == NULL) throw "Image not found.";
 
-		if (otimized != NULL) {
-			SDL_FreeSurface(image);
-			image = otimized;
-		}
+	otimized = SDL_DisplayFormat(image);
+
+	if (otimized != NULL) {
+		SDL_FreeSurface(image);
+		image = otimized;
 	}
 }
 
@@ -25,4 +24,14 @@ Image::~Image()
 SDL_Surface *Image::getSurface()
 {
 	return image;
+}
+
+int Image::getWidth()
+{
+	return image->w;
+}
+
+int Image::getHeight()
+{
+	return image->h;
 }

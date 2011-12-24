@@ -9,6 +9,8 @@ public:
 	Image(std::string filename);
 	~Image();
 	SDL_Surface *getSurface();
+	int getWidth();
+	int getHeight();
 
 protected:
 private:

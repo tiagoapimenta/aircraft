@@ -4,42 +4,51 @@ Application *Application::instance = NULL;
 
 Application::Application()
 {
-	screen = &Screen::getInstance();
-	event = &Event::getInstance();
+	screen = Screen::getInstance();
+	event = Event::getInstance();
 }
 
-Application& Application::getInstance()
+Application* Application::getInstance()
 {
 	if (!instance) instance = new Application();
 
-	return *instance;
+	return instance;
 }
 
 int Application::gameLoop()
 {
-	Image *aircaft = NULL;
-
-	aircaft = new Image(IMG_AIRCRAFT);
+	Aircraft *aircraft = new Aircraft(this);
 
 	startCounter();
 
 	while (event->poll())
 	{
 		// Logic?
+		aircraft->update();
 
 		// Rendering
 		screen->clear();
-		screen->blitImage(10, 10, *aircaft);
+		aircraft->draw();
 		screen->render();
 
 		waitFPS();
 	}
 
-	delete aircaft;
+	delete aircraft;
 
 	quit();
 
 	return 0;
+}
+
+Screen* Application::getScreen()
+{
+	return screen;
+}
+
+Event* Application::getEvent()
+{
+	return event;
 }
 
 void Application::quit()

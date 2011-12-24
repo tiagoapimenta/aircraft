@@ -9,8 +9,10 @@ class Event;
 class Application
 {
 public:
-	static Application& getInstance();
+	static Application* getInstance();
 	int gameLoop();
+	Screen* getScreen();
+	Event* getEvent();
 
 protected:
 private:

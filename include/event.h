@@ -6,13 +6,17 @@
 class Event
 {
 public:
-	static Event& getInstance();
+	static Event* getInstance();
 
 	bool poll();
+	void addKeyEvent(IKeyEventHandleable *keyEvent);
+	void removeKeyEvent(IKeyEventHandleable *keyEvent);
 
 protected:
 private:
 	static Event *instance;
+
+	std::vector<IKeyEventHandleable*> keyEvents;
 
 	Event();
 };

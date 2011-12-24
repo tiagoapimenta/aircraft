@@ -2,16 +2,19 @@
 #define CORE_H
 
 #include <string>
+#include <vector>
 #include <iostream>
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
+#include "interfaces.h"
 #include "application.h"
 #include "image.h"
 #include "screen.h"
 #include "event.h"
+#include "aircraft.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
