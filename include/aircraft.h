@@ -5,7 +5,8 @@
 
 #define AIRCRAFT_SPEED 4
 #define FIRE_LOOP 5
-#define FIRE_OFFSET 2
+#define FIRE_OFFSET_X 2
+#define FIRE_OFFSET_Y -1
 
 class Application;
 

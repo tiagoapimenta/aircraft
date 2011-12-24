@@ -17,7 +17,7 @@ Application* Application::getInstance()
 
 int Application::gameLoop()
 {
-	Aircraft *aircraft = new Aircraft(this);
+	World *world = new World(this);
 
 	startCounter();
 
@@ -28,7 +28,7 @@ int Application::gameLoop()
 		waitFPS();
 	}
 
-	delete aircraft;
+	delete world;
 
 	quit();
 

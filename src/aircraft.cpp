@@ -18,7 +18,7 @@ Aircraft::Aircraft(Application *application)
 	fire_height = fire1->getHeight();
 
 	left = (SCREEN_WIDTH - width) / 2;
-	top = SCREEN_HEIGHT - height - fire_height - 10;
+	top = SCREEN_HEIGHT - height - fire_height + FIRE_OFFSET_Y - 10;
 	move_top = move_left = 0;
 	fire_index = 0;
 
@@ -59,9 +59,9 @@ void Aircraft::update()
 	{
 		top = 0;
 	}
-	else if (top > SCREEN_HEIGHT - height - fire_height)
+	else if (top > SCREEN_HEIGHT - height - fire_height + FIRE_OFFSET_Y)
 	{
-		top = SCREEN_HEIGHT - height - fire_height;
+		top = SCREEN_HEIGHT - height - fire_height + FIRE_OFFSET_Y;
 	}
 	current_fire = (fire_index / FIRE_LOOP == 0) ? fire1 : fire2;
 	fire_index++;
@@ -71,7 +71,7 @@ void Aircraft::update()
 void Aircraft::draw()
 {
 	screen->blitImage(left, top, current_aircraft);
-	screen->blitImage(left + (width - fire_width) / 2 + move_left * FIRE_OFFSET, top + height, current_fire);
+	screen->blitImage(left + (width - fire_width) / 2 + move_left * FIRE_OFFSET_X, top + height + FIRE_OFFSET_Y, current_fire);
 }
 
 void Aircraft::keyDown(SDLKey key)
