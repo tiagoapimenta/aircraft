@@ -19,7 +19,7 @@ int Application::gameLoop()
 {
 	Image *aircaft = NULL;
 
-	aircaft = new Image(IMG_NAVE);
+	aircaft = new Image(IMG_AIRCRAFT);
 
 	startCounter();
 

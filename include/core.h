@@ -21,6 +21,8 @@
 
 #define SCREEN_TITLE "Aircraft Burner"
 
-#define IMG_NAVE "media/images/nave1.png"
+#define IMG_AIRCRAFT "media/images/aircraft.png"
+#define IMG_AIRCRAFT_RIGHT "media/images/aircraft-right.png"
+#define IMG_AIRCRAFT_LEFT "media/images/aircraft-left.png"
 
 #endif
