@@ -23,8 +23,6 @@ int Application::gameLoop()
 
 	while (event->poll())
 	{
-		// Rendering
-		screen->clear();
 		screen->render();
 
 		waitFPS();

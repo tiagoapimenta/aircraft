@@ -35,6 +35,8 @@ void Screen::clear()
 
 void Screen::render()
 {
+	clear();
+
 	for (int k = 0; k < MAX_LAYERS; k++)
 	{
 		int length = drawers[k].size();
