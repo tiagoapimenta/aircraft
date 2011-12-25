@@ -23,7 +23,7 @@ public:
 
 protected:
 private:
-	static std::map<std::string, ImageCounter*> images;
+	static std::map<std::string, ImageCounter> images;
 
 	std::string filename;
 	SDL_Surface *image;

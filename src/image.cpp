@@ -1,15 +1,15 @@
 #include "image.h"
 
-std::map<std::string, ImageCounter*> Image::images;
+std::map<std::string, ImageCounter> Image::images;
 
 Image::Image(std::string filename)
 {
 	this->filename = filename;
 	if (images.count(filename) > 0)
 	{
-		std::map<std::string, ImageCounter*>::iterator it = images.find(filename);
-		it->second->counter++;
-		image = it->second->image;
+		std::map<std::string, ImageCounter>::iterator it = images.find(filename);
+		it->second.counter++;
+		image = it->second.image;
 		return;
 	}
 
@@ -27,26 +27,24 @@ Image::Image(std::string filename)
 		image = otimized;
 	}
 
-	ImageCounter *image_counter = new ImageCounter();
-	image_counter->image = image;
-	image_counter->counter = 1;
-
+	ImageCounter image_counter;
+	image_counter.image = image;
+	image_counter.counter = 1;
 	images.insert(make_pair(filename, image_counter));
 }
 
 Image::~Image()
 {
-	images.find(filename)->second->counter--;
+	images.find(filename)->second.counter--;
 }
 
 void Image::clearCache()
 {
-	for (std::map<std::string, ImageCounter*>::iterator it = images.begin(); it != images.end(); it++)
+	for (std::map<std::string, ImageCounter>::iterator it = images.begin(); it != images.end(); it++)
 	{
-		if (it->second->counter == 0)
+		if (it->second.counter == 0)
 		{
-			SDL_FreeSurface(it->second->image);
-			delete it->second;
+			SDL_FreeSurface(it->second.image);
 			images.erase(it);
 		}
 	}
