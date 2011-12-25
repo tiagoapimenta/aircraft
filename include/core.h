@@ -16,7 +16,6 @@
 #include "application.h"
 #include "image.h"
 //audio
-//cache
 #include "screen.h"
 #include "event.h"
 #include "world.h"

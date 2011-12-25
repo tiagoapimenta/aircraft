@@ -89,6 +89,8 @@ void Application::computePoints(int points)
 
 void Application::quit()
 {
+	Image::clearCache();
+
 	SDL_Quit();
 }
 
