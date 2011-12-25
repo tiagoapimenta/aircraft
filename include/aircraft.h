@@ -17,6 +17,7 @@
 #define SHOT_INTERVAL 7
 #define SHOT_TYPE 1
 #define SHOT_SPEED -5
+#define SHOT_DAMAGE 1
 
 class Application;
 

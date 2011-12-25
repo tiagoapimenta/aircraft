@@ -1,6 +1,6 @@
 #include "shot.h"
 
-Shot::Shot(Application *application, int type, int left, int top, int move_left, int move_top, bool enemy)
+Shot::Shot(Application *application, int type, int left, int top, int move_left, int move_top, int damage, bool enemy)
 {
 	this->application = application;
 	screen = application->getScreen();
@@ -31,6 +31,7 @@ Shot::Shot(Application *application, int type, int left, int top, int move_left,
 	this->top = top - height / 2;
 	this->move_left = move_left;
 	this->move_top = move_top;
+	this->damage = damage;
 	this->enemy = enemy;
 	index = 0;
 
@@ -60,7 +61,18 @@ void Shot::update()
 		current_image = image[index / SHOT_ANIMATION];
 	}
 
-	// TODO: colission
+	if (enemy)
+	{
+		// TODO: check hero collision
+	}
+	else
+	{
+		if (Enemy::checkShotCollision(damage, left, top, width, height)) // TODO: do it with boss too
+		{
+			explode();
+			return;
+		}
+	}
 
 	if (top < 0 || top > SCREEN_HEIGHT + height || left < 0 || left > SCREEN_WIDTH + width) delete this;
 }
@@ -68,4 +80,9 @@ void Shot::update()
 void Shot::draw()
 {
 	screen->blitImage(left, top, current_image);
+}
+
+void Shot::explode()
+{
+	// TODO: do explosion, if damage > 1 then explosion bigger, and give damage again, 50% of damage
 }

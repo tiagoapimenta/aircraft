@@ -72,7 +72,7 @@ void Aircraft::update()
 
 	if (shot_interval > 0) shot_interval--;
 	else if (shooting && shot_interval == 0) {
-		new Shot(application, SHOT_TYPE, left + width / 2 + move_left * FIRE_OFFSET_X, top, 0, SHOT_SPEED, false);
+		new Shot(application, SHOT_TYPE, left + width / 2 + move_left * FIRE_OFFSET_X, top, 0, SHOT_SPEED, SHOT_DAMAGE, false);
 		shot_interval = SHOT_INTERVAL;
 	}
 }
