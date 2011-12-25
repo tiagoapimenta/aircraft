@@ -26,7 +26,6 @@
 //boss
 //explosion
 
-//aircraft immortal
 //pause
 
 #endif

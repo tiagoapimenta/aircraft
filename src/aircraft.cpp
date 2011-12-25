@@ -18,11 +18,13 @@ Aircraft::Aircraft(Application *application)
 	fire_height = fire1->getHeight();
 
 	left = (SCREEN_WIDTH - width) / 2;
-	top = SCREEN_HEIGHT - height - fire_height + FIRE_OFFSET_Y - 10;
+	top = SCREEN_HEIGHT;
 	move_top = move_left = 0;
 	fire_index = 0;
 	shot_interval = 0;
 	shooting = false;
+	animation = true;
+	immortal_time = IMMORTAL_TIME;
 	energy = AIRCRAFT_LIFES;
 	life = AIRCRAFT_CONTINUES;
 
@@ -49,6 +51,13 @@ Aircraft::~Aircraft()
 
 void Aircraft::update()
 {
+	if (animation)
+	{
+		if (top > SCREEN_HEIGHT - height -fire_height - FIRE_OFFSET_Y - AIRCRAFT_POSITION) top--;
+		else animation = false;
+		return;
+	}
+
 	left += move_left * AIRCRAFT_SPEED;
 	top += move_top * AIRCRAFT_SPEED;
 	if (left < 0)
@@ -78,17 +87,23 @@ void Aircraft::update()
 		shot_interval = SHOT_INTERVAL;
 	}
 
+	if (immortal_time > 0) immortal_time--;
+
 	// TODO: special bomb
 }
 
 void Aircraft::draw()
 {
+	if ((immortal_time / IMMORTAL_INTERVAL) % 2 == 1) return;
+
 	screen->blitImage(left, top, current_aircraft);
 	screen->blitImage(left + (width - fire_width) / 2 + move_left * FIRE_OFFSET_X, top + height + FIRE_OFFSET_Y, current_fire);
 }
 
 void Aircraft::keyDown(SDLKey key)
 {
+	if (animation) return;
+
 	switch (key) {
 	case SDLK_UP:
 		move_top = -1;
@@ -114,6 +129,8 @@ void Aircraft::keyDown(SDLKey key)
 
 void Aircraft::keyUp(SDLKey key)
 {
+	if (animation) return;
+
 	switch (key) {
 	case SDLK_UP:
 		if (move_top < 0) move_top = 0;
@@ -146,7 +163,7 @@ void Aircraft::keyUp(SDLKey key)
 bool Aircraft::collide(int left, int top, int width, int height)
 {
 	return
-		energy > 0 &&
+		energy > 0 && immortal_time == 0 &&
 	    left + width >= this->left &&
 	    top + height >= this->top &&
 	    left <= this->left + this->width &&
@@ -155,6 +172,8 @@ bool Aircraft::collide(int left, int top, int width, int height)
 
 void Aircraft::damage(int damage)
 {
+	if (immortal_time > 0) return;
+
 	energy -= damage;
 
 	if (energy <= 0) explode();
@@ -165,5 +184,6 @@ void Aircraft::explode()
 	// TODO: do the explosion, but do not delete this
 	energy = AIRCRAFT_LIFES;
 	life--;
+	immortal_time = IMMORTAL_TIME;
 	// TODO: game over if life == 0
 }
