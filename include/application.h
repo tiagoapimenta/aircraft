@@ -3,6 +3,9 @@
 
 #include "core.h"
 
+#define FRAMES_PER_SECOND 40
+#define TIME_PER_FRAME (1000 / FRAMES_PER_SECOND)
+
 class Screen;
 class Event;
 
@@ -11,6 +14,8 @@ class Application
 public:
 	static Application* getInstance();
 	int gameLoop();
+	void addUpdater(IUpdatable *updater);
+	void removeUpdater(IUpdatable *updater);
 	Screen* getScreen();
 	Event* getEvent();
 
@@ -20,10 +25,13 @@ private:
 	Screen *screen;
 	Event *event;
 	Uint32 timer;
+	std::vector<IUpdatable*> updaters;
 
 	Application();
+
 	void startCounter();
 	void waitFPS();
+	void update();
 	void quit();
 };
 

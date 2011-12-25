@@ -28,14 +28,14 @@ Aircraft::Aircraft(Application *application)
 	current_fire = fire1;
 
 	event->addKeyEvent(this);
-	event->addUpdater(this);
+	application->addUpdater(this);
 	screen->addDrawer(1, this);
 }
 
 Aircraft::~Aircraft()
 {
 	event->removeKeyEvent(this);
-	event->removeUpdater(this);
+	application->removeUpdater(this);
 	screen->removeDrawer(1, this);
 
 	delete aircraft;

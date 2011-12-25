@@ -3,6 +3,12 @@
 
 #include "core.h"
 
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 240
+#define SCREEN_BPP 32
+
+#define SCREEN_TITLE "Aircraft Burner"
+
 #define MAX_LAYERS 5
 
 class Image;

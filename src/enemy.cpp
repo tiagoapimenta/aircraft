@@ -4,7 +4,6 @@ Enemy::Enemy(Application *application, int type)
 {
 	this->application = application;
 	screen = application->getScreen();
-	event = application->getEvent();
 
 	std::ostringstream filename;
 	filename << IMG_ENEMY_PREFIX << type << IMG_ENEMY_SUFFIX;
@@ -17,13 +16,13 @@ Enemy::Enemy(Application *application, int type)
 
 	// TODO: add it to enemy list
 
-	event->addUpdater(this);
+	application->addUpdater(this);
 	screen->addDrawer(1, this);
 }
 
 Enemy::~Enemy()
 {
-	event->removeUpdater(this);
+	application->removeUpdater(this);
 	screen->removeDrawer(1, this);
 
 	delete image;

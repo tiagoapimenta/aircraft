@@ -5,7 +5,6 @@ World::World(Application *application) // TODO: give level to open script?
 
 	this->application = application;
 	screen = application->getScreen();
-	event = application->getEvent();
 
 	aircraft = new Aircraft(application);
 
@@ -17,13 +16,13 @@ World::World(Application *application) // TODO: give level to open script?
 	height2 = background2->getHeight();
 	position1 = position2 = 0;
 
-	event->addUpdater(this);
+	application->addUpdater(this);
 	screen->addDrawer(0, this);
 }
 
 World::~World()
 {
-	event->removeUpdater(this);
+	application->removeUpdater(this);
 	screen->removeDrawer(0, this);
 
 	delete aircraft;

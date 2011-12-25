@@ -23,6 +23,8 @@ int Application::gameLoop()
 
 	while (event->poll())
 	{
+		update();
+
 		screen->render();
 
 		waitFPS();
@@ -33,6 +35,32 @@ int Application::gameLoop()
 	quit();
 
 	return 0;
+}
+
+void Application::update()
+{
+	int length = updaters.size();
+	for (int i = 0; i < length; i++)
+	{
+		updaters[i]->update();
+	}
+}
+
+void Application::addUpdater(IUpdatable *updater)
+{
+	updaters.push_back(updater);
+}
+
+void Application::removeUpdater(IUpdatable *updater)
+{
+	for (std::vector<IUpdatable*>::iterator it = updaters.begin() ; it < updaters.end(); it++ )
+	{
+		if (*it == updater)
+		{
+			updaters.erase(it);
+			break;
+		}
+	}
 }
 
 Screen* Application::getScreen()

@@ -3,7 +3,10 @@
 
 #include "core.h"
 
-#define ENEMY_SPEED 1;
+#define IMG_ENEMY_PREFIX "media/images/enemy"
+#define IMG_ENEMY_SUFFIX ".png"
+
+#define ENEMY_SPEED 1
 
 class Enemy : public IDrawable, public IUpdatable
 {
@@ -17,7 +20,6 @@ class Enemy : public IDrawable, public IUpdatable
 	private:
 		Application *application;
 		Screen *screen;
-		Event *event;
 		Image *image;
 		int left;
 		int top;

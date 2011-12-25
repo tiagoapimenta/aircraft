@@ -3,6 +3,13 @@
 
 #include "core.h"
 
+#define IMG_AIRCRAFT "media/images/aircraft.png"
+#define IMG_AIRCRAFT_RIGHT "media/images/aircraft-right.png"
+#define IMG_AIRCRAFT_LEFT "media/images/aircraft-left.png"
+
+#define IMG_FIRE1 "media/images/fire1.png"
+#define IMG_FIRE2 "media/images/fire2.png"
+
 #define AIRCRAFT_SPEED 4
 #define FIRE_LOOP 5
 #define FIRE_OFFSET_X 2

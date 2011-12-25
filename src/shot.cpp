@@ -4,7 +4,6 @@ Shot::Shot(Application *application, int type, int left, int top, int move_left,
 {
 	this->application = application;
 	screen = application->getScreen();
-	event = application->getEvent();
 
 	std::ostringstream filename;
 	if (type == 3)
@@ -35,13 +34,13 @@ Shot::Shot(Application *application, int type, int left, int top, int move_left,
 	this->enemy = enemy;
 	index = 0;
 
-	event->addUpdater(this);
+	application->addUpdater(this);
 	screen->addDrawer(2, this);
 }
 
 Shot::~Shot()
 {
-	event->removeUpdater(this);
+	application->removeUpdater(this);
 	screen->removeDrawer(2, this);
 
 	for (int i = size; i--; )

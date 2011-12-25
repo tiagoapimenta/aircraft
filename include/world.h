@@ -3,6 +3,9 @@
 
 #include "core.h"
 
+#define IMG_BACKGROUND1 "media/images/background1.png"
+#define IMG_BACKGROUND2 "media/images/background2.png"
+
 #define SPEED_BACKGROUND1 1
 #define SPEED_BACKGROUND2 2
 
@@ -22,7 +25,6 @@ protected:
 private:
 	Application *application;
 	Screen *screen;
-	Event *event;
 	Aircraft *aircraft;
 	Image *background1, *background2;
 	int height1;
