@@ -41,6 +41,8 @@ Shot::Shot(Application *application, int type, int left, int top, int move_left,
 
 	application->addUpdater(this);
 	screen->addDrawer(SHOT_LAYER, this);
+
+	application->getAudio()->playSound((type == 1) ? SND_SHOT1 : SND_SHOT2);
 }
 
 Shot::~Shot()

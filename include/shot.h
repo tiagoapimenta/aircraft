@@ -6,6 +6,8 @@
 #define IMG_SHOT_PREFIX "media/images/shot"
 #define IMG_SHOT_SEPARATOR "-"
 #define IMG_SHOT_SUFFIX ".png"
+#define SND_SHOT1 "media/audio/shot.ogg"
+#define SND_SHOT2 "media/audio/laser.ogg"
 
 #define MAX_SHOT 4
 #define SHOT_ANIMATION 5

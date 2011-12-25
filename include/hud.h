@@ -5,11 +5,11 @@
 
 #define HUD_LAYER 4
 
-#define HUD_MARGIN_LEFT 10
-#define HUD_MARGIN_TOP 10
-#define HUD_MARGIN_RIGTH 10
-#define HUD_MARGIN_BOTTOM 10
-#define HUD_MARGIN_SPAN 5
+#define HUD_MARGIN_LEFT 5
+#define HUD_MARGIN_TOP 5
+#define HUD_MARGIN_RIGTH 5
+#define HUD_MARGIN_BOTTOM 5
+#define HUD_MARGIN_SPAN 2
 
 #define IMG_LIFE "media/images/life.png"
 #define IMG_BOMB "media/images/special.png"

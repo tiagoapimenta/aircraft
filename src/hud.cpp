@@ -5,8 +5,8 @@ HUD::HUD(Application *application)
 	this->application = application;
 	screen = application->getScreen();
 
-	SDL_Color black = {255, 0, 0};
-	font = new Font(14, black);
+	SDL_Color black = {0, 0, 128};
+	font = new Font(24, black);
 
 	img_life = new Image(IMG_LIFE);
 	img_bomb = new Image(IMG_BOMB);

@@ -114,8 +114,8 @@ void Enemy::damage(int damage)
 {
 	life -= damage;
 
-	if (life < 0) hud->computePoints(damage + life);
-	else hud->computePoints(damage);
+	if (life < 0) hud->computePoints((damage + life) * ENEMY_POINTS);
+	else hud->computePoints(damage * ENEMY_POINTS);
 
 	if (life <= 0) delete this;
 }

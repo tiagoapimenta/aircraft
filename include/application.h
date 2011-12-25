@@ -8,6 +8,7 @@
 
 class Screen;
 class Event;
+class Audio;
 class World;
 
 class Application
@@ -21,6 +22,7 @@ public:
 	void removeUpdater(IUpdatable *updater);
 	Screen* getScreen();
 	Event* getEvent();
+	Audio* getAudio();
 	World* getWorld();
 	void computePoints(int points);
 
@@ -28,6 +30,7 @@ protected:
 private:
 	Screen *screen;
 	Event *event;
+	Audio *audio;
 	World *world;
 	Uint32 timer;
 

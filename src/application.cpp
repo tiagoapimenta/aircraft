@@ -4,6 +4,7 @@ Application::Application()
 {
 	screen = new Screen();
 	event = new Event();
+	audio = new Audio();
 	world = NULL;
 }
 
@@ -14,6 +15,7 @@ Application::~Application()
 
 	delete event;
 	delete screen;
+	delete audio;
 
 	SDL_Quit();
 }
@@ -74,6 +76,11 @@ Screen* Application::getScreen()
 Event* Application::getEvent()
 {
 	return event;
+}
+
+Audio* Application::getAudio()
+{
+	return audio;
 }
 
 World* Application::getWorld()

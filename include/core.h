@@ -17,8 +17,8 @@
 #include "application.h"
 #include "image.h"
 #include "font.h"
-//audio
 #include "screen.h"
+#include "audio.h"
 #include "event.h"
 #include "world.h"
 #include "hud.h"

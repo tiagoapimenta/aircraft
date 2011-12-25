@@ -24,13 +24,16 @@
 			<Add option="`sdl-config --cflags` -Iinclude" />
 		</Compiler>
 		<Linker>
-			<Add option="`sdl-config --libs` -lSDL_image -lSDL_ttf" />
+			<Add option="`sdl-config --libs` -lSDL_image -lSDL_ttf -lSDL_mixer" />
 		</Linker>
 		<Unit filename="include/aircraft.h" />
 		<Unit filename="include/application.h" />
+		<Unit filename="include/audio.h" />
 		<Unit filename="include/core.h" />
 		<Unit filename="include/enemy.h" />
 		<Unit filename="include/event.h" />
+		<Unit filename="include/font.h" />
+		<Unit filename="include/hud.h" />
 		<Unit filename="include/image.h" />
 		<Unit filename="include/interfaces.h" />
 		<Unit filename="include/main.h" />
@@ -39,8 +42,11 @@
 		<Unit filename="include/world.h" />
 		<Unit filename="src/aircraft.cpp" />
 		<Unit filename="src/application.cpp" />
+		<Unit filename="src/audio.cpp" />
 		<Unit filename="src/enemy.cpp" />
 		<Unit filename="src/event.cpp" />
+		<Unit filename="src/font.cpp" />
+		<Unit filename="src/hud.cpp" />
 		<Unit filename="src/image.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/screen.cpp" />
