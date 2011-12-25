@@ -30,7 +30,6 @@ private:
 	Event *event;
 	World *world;
 	Uint32 timer;
-	int points;
 
 	std::set<IUpdatable*> updaters;
 

@@ -2,14 +2,14 @@
 
 int main(int argc, char *argv[])
 {
-	int ret = 0;
+	int exit_code = 0;
 
 	Application *application = new Application();
 
-	ret = application->gameLoop();
+	exit_code = application->gameLoop();
 
 	delete application;
 
-	return ret;
+	return exit_code;
 }
 

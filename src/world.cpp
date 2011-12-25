@@ -6,7 +6,8 @@ World::World(Application *application) // TODO: give level to open script?
 	this->application = application;
 	screen = application->getScreen();
 
-	aircraft = new Aircraft(application);
+	hud = new HUD(application);
+	aircraft = new Aircraft(application, hud);
 
 	background1 = new Image(IMG_BACKGROUND1);
 	background2 = new Image(IMG_BACKGROUND2);
@@ -28,6 +29,7 @@ World::~World()
 	//Boss::deleteAll();
 
 	delete aircraft;
+	delete hud;
 	delete background1;
 	delete background2;
 }
@@ -35,6 +37,11 @@ World::~World()
 Aircraft* World::getAircraft()
 {
 	return aircraft;
+}
+
+HUD* World::getHUD()
+{
+	return hud;
 }
 
 void World::update()

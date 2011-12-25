@@ -21,7 +21,7 @@
 #include "screen.h"
 #include "event.h"
 #include "world.h"
-//hud
+#include "hud.h"
 #include "aircraft.h"
 #include "enemy.h"
 #include "shot.h"

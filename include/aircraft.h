@@ -13,6 +13,7 @@
 #define AIRCRAFT_SPEED 4
 #define AIRCRAFT_LIFES 5
 #define AIRCRAFT_CONTINUES 3
+#define AIRCRAFT_BOMBS 3
 #define AIRCRAFT_POSITION 10
 #define AIRCRAFT_LAYER 2
 #define FIRE_LOOP 5
@@ -30,7 +31,7 @@ class Application;
 class Aircraft : public IKeyEventHandleable, public IUpdatable, public IDrawable
 {
 public:
-	Aircraft(Application* application);
+	Aircraft(Application* application, HUD *hud);
 	~Aircraft();
 
 	void update();
@@ -47,6 +48,7 @@ private:
 	Application* application;
 	Screen* screen;
 	Event* event;
+	HUD* hud;
 	Image *aircraft, *aircraft_left, *aircraft_right, *current_aircraft;
 	Image *fire1, *fire2, *current_fire;
 	int width;
@@ -62,6 +64,7 @@ private:
 	int shot_interval;
 	int life;
 	int energy;
+	int bomb;
 	int ghost_time;
 	bool animation;
 };

@@ -12,6 +12,7 @@
 
 class Application;
 class Aircraft;
+class HUD;
 
 class World : public IDrawable, public IUpdatable
 {
@@ -20,6 +21,7 @@ public:
 	~World();
 
 	Aircraft* getAircraft();
+	HUD* getHUD();
 	void update();
 	void draw();
 
@@ -27,6 +29,7 @@ protected:
 private:
 	Application *application;
 	Screen *screen;
+	HUD *hud;
 	Aircraft *aircraft;
 	Image *background1, *background2;
 	int height1;

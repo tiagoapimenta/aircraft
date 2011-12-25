@@ -5,7 +5,6 @@ Application::Application()
 	screen = new Screen();
 	event = new Event();
 	world = NULL;
-	points = 0;
 }
 
 Application::~Application()
@@ -80,11 +79,6 @@ Event* Application::getEvent()
 World* Application::getWorld()
 {
 	return world;
-}
-
-void Application::computePoints(int points)
-{
-	this->points += points;
 }
 
 void Application::startCounter()

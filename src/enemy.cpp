@@ -6,9 +6,9 @@ Enemy::Enemy(Application *application, int type, int life, int left, int top, in
 {
 	this->application = application;
 	screen = application->getScreen();
-	aircraft = application->getWorld()->getAircraft();
-
-
+	World *world = application->getWorld();
+	aircraft = world->getAircraft();
+	hud = world->getHUD();
 
 	std::ostringstream filename;
 	filename << IMG_ENEMY_PREFIX << type << IMG_ENEMY_SUFFIX;
@@ -114,8 +114,8 @@ void Enemy::damage(int damage)
 {
 	life -= damage;
 
-	if (life < 0) application->computePoints(damage + life);
-	else application->computePoints(damage);
+	if (life < 0) hud->computePoints(damage + life);
+	else hud->computePoints(damage);
 
 	if (life <= 0) delete this;
 }

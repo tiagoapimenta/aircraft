@@ -1,10 +1,11 @@
 #include "aircraft.h"
 
-Aircraft::Aircraft(Application *application)
+Aircraft::Aircraft(Application *application, HUD *hud)
 {
 	this->application = application;
 	screen = application->getScreen();
 	event = application->getEvent();
+	this->hud = hud;
 
 	aircraft = new Image(IMG_AIRCRAFT);
 	aircraft_left = new Image(IMG_AIRCRAFT_LEFT);
@@ -27,6 +28,7 @@ Aircraft::Aircraft(Application *application)
 	ghost_time = GHOST_TIME;
 	energy = AIRCRAFT_LIFES;
 	life = AIRCRAFT_CONTINUES;
+	bomb = AIRCRAFT_BOMBS;
 
 	current_aircraft = aircraft;
 	current_fire = fire1;
@@ -173,6 +175,7 @@ void Aircraft::damage(int damage)
 	energy -= damage;
 
 	if (energy <= 0) explode();
+	else hud->setLifes(energy);
 }
 
 void Aircraft::explode()
@@ -182,4 +185,7 @@ void Aircraft::explode()
 	life--;
 	ghost_time = GHOST_TIME;
 	// TODO: game over if life == 0
+
+	hud->setLifes(energy);
+	hud->setContinues(life);
 }

@@ -16,6 +16,7 @@ Font::Font(int size, SDL_Color color)
 
 	font = TTF_OpenFont(FONT_FILENAME, size);
 	if (font == NULL) throw "Image not found.";
+	TTF_SetFontStyle(font, TTF_STYLE_BOLD);
 
 	FontCounter font_counter;
 	font_counter.font = font;

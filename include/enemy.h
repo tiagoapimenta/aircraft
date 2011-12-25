@@ -34,8 +34,9 @@ private:
 
 	Application *application;
 	Screen *screen;
-	Image *image;
 	Aircraft *aircraft;
+	HUD *hud;
+	Image *image;
 	int left;
 	int top;
 	int move;
