@@ -6,7 +6,7 @@
 class Event
 {
 public:
-	static Event* getInstance();
+	Event();
 
 	bool poll();
 	void addKeyEvent(IKeyEventHandleable *keyEvent);
@@ -15,11 +15,7 @@ public:
 
 protected:
 private:
-	static Event *instance;
-
 	std::set<IKeyEventHandleable*> keyEvents;
-
-	Event();
 };
 
 #endif // EVENT_H

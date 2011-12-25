@@ -96,14 +96,12 @@ void Aircraft::draw()
 {
 	if ((ghost_time / GHOST_INTERVAL) % 2 == 1) return;
 
-	screen->blitImage(left, top, current_aircraft);
-	screen->blitImage(left + (width - fire_width) / 2 + move_left * FIRE_OFFSET_X, top + height + FIRE_OFFSET_Y, current_fire);
+	screen->blitImage(left, top, animation ? aircraft : current_aircraft);
+	screen->blitImage(left + (width - fire_width) / 2 + (animation ? 0 : move_left) * FIRE_OFFSET_X, top + height + FIRE_OFFSET_Y, current_fire);
 }
 
 void Aircraft::keyDown(SDLKey key)
 {
-	if (animation) return;
-
 	switch (key) {
 	case SDLK_UP:
 		move_top = -1;
@@ -129,8 +127,6 @@ void Aircraft::keyDown(SDLKey key)
 
 void Aircraft::keyUp(SDLKey key)
 {
-	if (animation) return;
-
 	switch (key) {
 	case SDLK_UP:
 		if (move_top < 0) move_top = 0;
@@ -163,7 +159,7 @@ void Aircraft::keyUp(SDLKey key)
 bool Aircraft::collide(int left, int top, int width, int height)
 {
 	return
-		energy > 0 && ghost_time == 0 &&
+	    energy > 0 && ghost_time == 0 &&
 	    left + width >= this->left &&
 	    top + height >= this->top &&
 	    left <= this->left + this->width &&

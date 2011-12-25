@@ -1,20 +1,22 @@
 #include "application.h"
 
-Application *Application::instance = NULL;
-
 Application::Application()
 {
-	screen = Screen::getInstance();
-	event = Event::getInstance();
+	screen = new Screen();
+	event = new Event();
 	world = NULL;
 	points = 0;
 }
 
-Application* Application::getInstance()
+Application::~Application()
 {
-	if (!instance) instance = new Application();
+	Image::clearCache();
+	Font::clearCache();
 
-	return instance;
+	delete event;
+	delete screen;
+
+	SDL_Quit();
 }
 
 int Application::gameLoop()
@@ -36,8 +38,6 @@ int Application::gameLoop()
 
 	delete world;
 	world = NULL;
-
-	quit();
 
 	return 0;
 }
@@ -85,13 +85,6 @@ World* Application::getWorld()
 void Application::computePoints(int points)
 {
 	this->points += points;
-}
-
-void Application::quit()
-{
-	Image::clearCache();
-
-	SDL_Quit();
 }
 
 void Application::startCounter()

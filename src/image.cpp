@@ -4,6 +4,7 @@ std::map<std::string, ImageCounter> Image::images;
 
 Image::Image(std::string filename)
 {
+	from_file = true;
 	this->filename = filename;
 	if (images.count(filename) > 0)
 	{
@@ -30,12 +31,18 @@ Image::Image(std::string filename)
 	ImageCounter image_counter;
 	image_counter.image = image;
 	image_counter.counter = 1;
-	images.insert(make_pair(filename, image_counter));
+	images.insert(std::make_pair(filename, image_counter));
+}
+
+Image::Image(SDL_Surface *image)
+{
+	this->image = image;
 }
 
 Image::~Image()
 {
-	images.find(filename)->second.counter--;
+	if (from_file) images.find(filename)->second.counter--;
+	else SDL_FreeSurface(image);
 }
 
 void Image::clearCache()

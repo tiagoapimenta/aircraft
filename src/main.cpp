@@ -2,8 +2,14 @@
 
 int main(int argc, char *argv[])
 {
-	Application *application = Application::getInstance();
+	int ret = 0;
 
-	return application->gameLoop();
+	Application *application = new Application();
+
+	ret = application->gameLoop();
+
+	delete application;
+
+	return ret;
 }
 

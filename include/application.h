@@ -13,7 +13,9 @@ class World;
 class Application
 {
 public:
-	static Application* getInstance();
+	Application();
+	~Application();
+
 	int gameLoop();
 	void addUpdater(IUpdatable *updater);
 	void removeUpdater(IUpdatable *updater);
@@ -24,7 +26,6 @@ public:
 
 protected:
 private:
-	static Application *instance;
 	Screen *screen;
 	Event *event;
 	World *world;
@@ -32,8 +33,6 @@ private:
 	int points;
 
 	std::set<IUpdatable*> updaters;
-
-	Application();
 
 	void startCounter();
 	void waitFPS();

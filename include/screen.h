@@ -16,21 +16,22 @@ class Image;
 class Screen
 {
 public:
-	static Screen* getInstance();
+	Screen();
+	~Screen();
 
 	void blitImage(int x, int y, Image *source);
+
 	void render();
+
 	void addDrawer(int layer, IDrawable *drawer);
 	void removeDrawer(int layer, IDrawable *drawer);
 
 protected:
 private:
-	static Screen *instance;
-
 	SDL_Surface *screen;
+	//TTF_Font *font;
 	std::set<IDrawable*> drawers[MAX_LAYERS];
 
-	Screen();
 	void clear();
 };
 

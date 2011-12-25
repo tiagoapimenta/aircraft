@@ -103,7 +103,7 @@ void Enemy::draw()
 bool Enemy::collide(int left, int top, int width, int height)
 {
 	return
-		life > 0 &&
+	    life > 0 &&
 	    left + width >= this->left &&
 	    top + height >= this->top &&
 	    left <= this->left + this->width &&

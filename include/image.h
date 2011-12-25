@@ -13,6 +13,7 @@ class Image
 {
 public:
 	Image(std::string filename);
+	Image(SDL_Surface *image);
 	~Image();
 
 	static void clearCache();
@@ -27,6 +28,7 @@ private:
 
 	std::string filename;
 	SDL_Surface *image;
+	bool from_file;
 };
 
 #endif // IMAGE_H

@@ -1,21 +1,18 @@
 #include "screen.h"
 
-Screen *Screen::instance = NULL;
-
 Screen::Screen()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) == -1) throw "Couldn't init video.";
 	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_HWSURFACE | SDL_DOUBLEBUF);
 	if (screen == NULL) throw "Couldn't create a video surface.";
+	if (TTF_Init() == -1) throw "Couldn't init TTF support.";
 	SDL_WM_SetCaption(SCREEN_TITLE, NULL);
 	SDL_ShowCursor(SDL_DISABLE);
 }
 
-Screen* Screen::getInstance()
+Screen::~Screen()
 {
-	if (!instance) instance = new Screen();
-
-	return instance;
+	TTF_Quit();
 }
 
 void Screen::blitImage(int x, int y, Image *source)

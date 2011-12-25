@@ -10,11 +10,13 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
+#include <SDL/SDL_mixer.h>
 
 #include "interfaces.h" // It must comes first, I don't know wky it doesn't works if it isn't, even with "class Name;" prototype.
 
 #include "application.h"
 #include "image.h"
+#include "font.h"
 //audio
 #include "screen.h"
 #include "event.h"
