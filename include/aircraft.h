@@ -7,6 +7,9 @@
 #define FIRE_LOOP 5
 #define FIRE_OFFSET_X 2
 #define FIRE_OFFSET_Y -1
+#define SHOT_INTERVAL 7
+#define SHOT_TYPE 1
+#define SHOT_SPEED -5
 
 class Application;
 
@@ -37,6 +40,8 @@ private:
 	int top;
 	int move_top;
 	int move_left;
+	bool shooting;
+	int shot_interval;
 };
 
 #endif // AIRCRAFT_H

@@ -19,7 +19,7 @@
 #include "world.h"
 #include "aircraft.h"
 #include "enemy.h"
-//fire
+#include "shot.h"
 //boss
 //exmplosion
 
@@ -43,5 +43,9 @@
 
 #define IMG_ENEMY_PREFIX "media/images/enemy"
 #define IMG_ENEMY_SUFFIX ".png"
+
+#define IMG_SHOT_PREFIX "media/images/shot"
+#define IMG_SHOT_SEPARATOR "-"
+#define IMG_SHOT_SUFFIX ".png"
 
 #endif

@@ -21,6 +21,8 @@ Aircraft::Aircraft(Application *application)
 	top = SCREEN_HEIGHT - height - fire_height + FIRE_OFFSET_Y - 10;
 	move_top = move_left = 0;
 	fire_index = 0;
+	shot_interval = 0;
+	shooting = false;
 
 	current_aircraft = aircraft;
 	current_fire = fire1;
@@ -63,9 +65,16 @@ void Aircraft::update()
 	{
 		top = SCREEN_HEIGHT - height - fire_height + FIRE_OFFSET_Y;
 	}
+
 	current_fire = (fire_index / FIRE_LOOP == 0) ? fire1 : fire2;
 	fire_index++;
 	if (fire_index >= 2 * FIRE_LOOP) fire_index = 0;
+
+	if (shot_interval > 0) shot_interval--;
+	else if (shooting && shot_interval == 0) {
+		new Shot(application, SHOT_TYPE, left + width / 2 + move_left * FIRE_OFFSET_X, top, 0, SHOT_SPEED, false);
+		shot_interval = SHOT_INTERVAL;
+	}
 }
 
 void Aircraft::draw()
@@ -90,6 +99,9 @@ void Aircraft::keyDown(SDLKey key)
 	case SDLK_RIGHT:
 		move_left = 1;
 		current_aircraft = aircraft_right;
+		break;
+	case SDLK_LCTRL:
+		shooting = true;
 		break;
 	default:
 		break;
@@ -118,6 +130,9 @@ void Aircraft::keyUp(SDLKey key)
 			move_left = 0;
 			current_aircraft = aircraft;
 		}
+		break;
+	case SDLK_LCTRL:
+		shooting = false;
 		break;
 	default:
 		break;
