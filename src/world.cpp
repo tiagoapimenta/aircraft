@@ -5,6 +5,7 @@ World::World(Application *application) // TODO: give level to open script?
 
 	this->application = application;
 	screen = application->getScreen();
+	audio = application->getAudio();
 
 	hud = new HUD(application);
 	aircraft = new Aircraft(application, hud);
@@ -17,6 +18,8 @@ World::World(Application *application) // TODO: give level to open script?
 
 	application->addUpdater(this);
 	screen->addDrawer(BACKGROUND_LAYER, this);
+
+	audio->playMusic(SND_MUSIC_LEVEL1);
 }
 
 World::~World()
@@ -24,8 +27,11 @@ World::~World()
 	application->removeUpdater(this);
 	screen->removeDrawer(BACKGROUND_LAYER, this);
 
+	audio->stopMusic();
+
 	Shot::deleteAll();
 	Enemy::deleteAll();
+	Explosion::deleteAll();
 	//Boss::deleteAll();
 
 	delete aircraft;

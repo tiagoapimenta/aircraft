@@ -79,7 +79,6 @@ void Audio::playSound(std::string filename)
 	else
 	{
 		sound = Mix_LoadWAV(filename.c_str());
-		std::cout << "Abrindo " << filename << " => " << sound << std::endl;
 		if (sound == NULL) throw "Cound't open sound.";
 		sounds.insert(make_pair(filename, sound));
 	}

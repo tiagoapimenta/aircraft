@@ -12,6 +12,11 @@
 #define MAX_SHOT 4
 #define SHOT_ANIMATION 5
 #define SHOT_LAYER 3
+#define BOMB_DELAY 80
+#define BOMB_EXPLOSION 2
+#define SHOT_DELAY 40
+#define SHOT_EXPLOSION 1
+
 
 class Shot : public IDrawable, public IUpdatable
 {
@@ -19,8 +24,6 @@ public:
 	Shot(Application *application, int type, int left, int top, int move_left, int move_top, int damage, bool enemy);
 	~Shot();
 
-	static void addShot(Shot *shot);
-	static void removeShot(Shot *shot);
 	static void deleteAll();
 
 	void update();
@@ -33,6 +36,7 @@ private:
 	Screen *screen;
 	Image *image[MAX_SHOT];
 	Image *current_image;
+	bool bomb;
 	int left;
 	int top;
 	int width;

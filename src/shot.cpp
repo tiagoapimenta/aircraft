@@ -7,6 +7,7 @@ Shot::Shot(Application *application, int type, int left, int top, int move_left,
 	this->application = application;
 	screen = application->getScreen();
 
+	this->bomb = type == 3;
 	std::ostringstream filename;
 	if (type == 3)
 	{
@@ -37,7 +38,7 @@ Shot::Shot(Application *application, int type, int left, int top, int move_left,
 	this->enemy = enemy;
 	index = 0;
 
-	addShot(this);
+	shots.insert(this);
 
 	application->addUpdater(this);
 	screen->addDrawer(SHOT_LAYER, this);
@@ -55,24 +56,7 @@ Shot::~Shot()
 		delete image[i];
 	}
 
-	removeShot(this);
-}
-
-void Shot::addShot(Shot *shot)
-{
-	shots.insert(shot);
-}
-
-void Shot::removeShot(Shot *shot)
-{
-	for (std::set<Shot*>::iterator it = shots.begin() ; it != shots.end(); it++ )
-	{
-		if (*it == shot)
-		{
-			shots.erase(it);
-			break;
-		}
-	}
+	shots.erase(this);
 }
 
 void Shot::deleteAll()
@@ -117,6 +101,7 @@ void Shot::draw()
 
 void Shot::explode()
 {
-	// TODO: do explosion, if damage > 1 then explosion bigger, and give damage again, 50% of damage
+	if (bomb) new Explosion(application, BOMB_EXPLOSION, BOMB_DELAY, damage / 2, left - width / 2, top - height / 2);
+	else new Explosion(application, SHOT_EXPLOSION, SHOT_DELAY, 0, left - width / 2, top - height / 2);
 	delete this;
 }

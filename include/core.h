@@ -25,8 +25,8 @@
 #include "aircraft.h"
 #include "enemy.h"
 #include "shot.h"
+#include "explosion.h"
 //boss
-//explosion
 
 //pause
 

@@ -22,7 +22,7 @@ Enemy::Enemy(Application *application, int type, int life, int left, int top, in
 	this->top = top - height;
 	this->move = move;
 
-	addEnemy(this);
+	enemies.insert(this);
 
 	application->addUpdater(this);
 	screen->addDrawer(ENEMY_LAYER, this);
@@ -35,24 +35,7 @@ Enemy::~Enemy()
 
 	delete image;
 
-	removeEnemy(this);
-}
-
-void Enemy::addEnemy(Enemy *enemy)
-{
-	enemies.insert(enemy);
-}
-
-void Enemy::removeEnemy(Enemy *enemy)
-{
-	for (std::set<Enemy*>::iterator it = enemies.begin() ; it != enemies.end(); it++ )
-	{
-		if (*it == enemy)
-		{
-			enemies.erase(it);
-			break;
-		}
-	}
+	enemies.erase(this);
 }
 
 void Enemy::deleteAll()

@@ -17,8 +17,6 @@ public:
 	Enemy(Application *application, int type, int life, int left, int top, int move);
 	~Enemy();
 
-	static void addEnemy(Enemy *enemy);
-	static void removeEnemy(Enemy *enemy);
 	static void deleteAll();
 	static bool checkShotCollision(int damage, int left, int top, int width, int height);
 

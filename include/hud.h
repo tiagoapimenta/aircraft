@@ -3,7 +3,7 @@
 
 #include "core.h"
 
-#define HUD_LAYER 4
+#define HUD_LAYER 5
 
 #define HUD_MARGIN_LEFT 5
 #define HUD_MARGIN_TOP 5

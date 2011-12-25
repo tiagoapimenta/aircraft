@@ -6,6 +6,8 @@
 #define IMG_BACKGROUND1 "media/images/background1.png"
 #define IMG_BACKGROUND2 "media/images/background2.png"
 
+#define SND_MUSIC_LEVEL1 "media/audio/level1.mid"
+
 #define BACKGROUND_SPEED1 1
 #define BACKGROUND_SPEED2 2
 #define BACKGROUND_LAYER 0
@@ -29,6 +31,7 @@ protected:
 private:
 	Application *application;
 	Screen *screen;
+	Audio *audio;
 	HUD *hud;
 	Aircraft *aircraft;
 	Image *background1, *background2;
