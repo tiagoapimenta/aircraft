@@ -9,6 +9,7 @@
 
 #define MAX_SHOT 4
 #define SHOT_ANIMATION 5
+#define SHOT_LAYER 3
 
 class Shot : public IDrawable, public IUpdatable
 {

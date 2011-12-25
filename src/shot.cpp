@@ -40,13 +40,13 @@ Shot::Shot(Application *application, int type, int left, int top, int move_left,
 	addShot(this);
 
 	application->addUpdater(this);
-	screen->addDrawer(2, this);
+	screen->addDrawer(SHOT_LAYER, this);
 }
 
 Shot::~Shot()
 {
 	application->removeUpdater(this);
-	screen->removeDrawer(2, this);
+	screen->removeDrawer(SHOT_LAYER, this);
 
 	for (int i = size; i--; )
 	{

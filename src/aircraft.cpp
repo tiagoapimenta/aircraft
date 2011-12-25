@@ -24,7 +24,7 @@ Aircraft::Aircraft(Application *application)
 	shot_interval = 0;
 	shooting = false;
 	animation = true;
-	immortal_time = IMMORTAL_TIME;
+	ghost_time = GHOST_TIME;
 	energy = AIRCRAFT_LIFES;
 	life = AIRCRAFT_CONTINUES;
 
@@ -33,14 +33,14 @@ Aircraft::Aircraft(Application *application)
 
 	event->addKeyEvent(this);
 	application->addUpdater(this);
-	screen->addDrawer(1, this);
+	screen->addDrawer(AIRCRAFT_LAYER, this);
 }
 
 Aircraft::~Aircraft()
 {
 	event->removeKeyEvent(this);
 	application->removeUpdater(this);
-	screen->removeDrawer(1, this);
+	screen->removeDrawer(AIRCRAFT_LAYER, this);
 
 	delete aircraft;
 	delete aircraft_left;
@@ -87,14 +87,14 @@ void Aircraft::update()
 		shot_interval = SHOT_INTERVAL;
 	}
 
-	if (immortal_time > 0) immortal_time--;
+	if (ghost_time > 0) ghost_time--;
 
 	// TODO: special bomb
 }
 
 void Aircraft::draw()
 {
-	if ((immortal_time / IMMORTAL_INTERVAL) % 2 == 1) return;
+	if ((ghost_time / GHOST_INTERVAL) % 2 == 1) return;
 
 	screen->blitImage(left, top, current_aircraft);
 	screen->blitImage(left + (width - fire_width) / 2 + move_left * FIRE_OFFSET_X, top + height + FIRE_OFFSET_Y, current_fire);
@@ -163,7 +163,7 @@ void Aircraft::keyUp(SDLKey key)
 bool Aircraft::collide(int left, int top, int width, int height)
 {
 	return
-		energy > 0 && immortal_time == 0 &&
+		energy > 0 && ghost_time == 0 &&
 	    left + width >= this->left &&
 	    top + height >= this->top &&
 	    left <= this->left + this->width &&
@@ -172,7 +172,7 @@ bool Aircraft::collide(int left, int top, int width, int height)
 
 void Aircraft::damage(int damage)
 {
-	if (immortal_time > 0) return;
+	if (ghost_time > 0) return;
 
 	energy -= damage;
 
@@ -184,6 +184,6 @@ void Aircraft::explode()
 	// TODO: do the explosion, but do not delete this
 	energy = AIRCRAFT_LIFES;
 	life--;
-	immortal_time = IMMORTAL_TIME;
+	ghost_time = GHOST_TIME;
 	// TODO: game over if life == 0
 }

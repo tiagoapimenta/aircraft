@@ -14,6 +14,7 @@
 #define AIRCRAFT_LIFES 5
 #define AIRCRAFT_CONTINUES 3
 #define AIRCRAFT_POSITION 10
+#define AIRCRAFT_LAYER 2
 #define FIRE_LOOP 5
 #define FIRE_OFFSET_X 2
 #define FIRE_OFFSET_Y -1
@@ -21,8 +22,8 @@
 #define SHOT_TYPE 1
 #define SHOT_SPEED -5
 #define SHOT_DAMAGE 1
-#define IMMORTAL_TIME 120
-#define IMMORTAL_INTERVAL 5
+#define GHOST_TIME 120
+#define GHOST_INTERVAL 5
 
 class Application;
 
@@ -61,7 +62,7 @@ private:
 	int shot_interval;
 	int life;
 	int energy;
-	int immortal_time;
+	int ghost_time;
 	bool animation;
 };
 

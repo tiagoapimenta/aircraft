@@ -15,13 +15,13 @@ World::World(Application *application) // TODO: give level to open script?
 	position1 = position2 = 0;
 
 	application->addUpdater(this);
-	screen->addDrawer(0, this);
+	screen->addDrawer(BACKGROUND_LAYER, this);
 }
 
 World::~World()
 {
 	application->removeUpdater(this);
-	screen->removeDrawer(0, this);
+	screen->removeDrawer(BACKGROUND_LAYER, this);
 
 	Shot::deleteAll();
 	Enemy::deleteAll();
@@ -39,8 +39,8 @@ Aircraft* World::getAircraft()
 
 void World::update()
 {
-	position1 += SPEED_BACKGROUND1;
-	position2 += SPEED_BACKGROUND2;
+	position1 += BACKGROUND_SPEED1;
+	position2 += BACKGROUND_SPEED2;
 	if (position1 > height1) position1 = 0;
 	if (position2 > height2) position2 = 0;
 }

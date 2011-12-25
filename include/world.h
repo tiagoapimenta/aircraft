@@ -6,8 +6,9 @@
 #define IMG_BACKGROUND1 "media/images/background1.png"
 #define IMG_BACKGROUND2 "media/images/background2.png"
 
-#define SPEED_BACKGROUND1 1
-#define SPEED_BACKGROUND2 2
+#define BACKGROUND_SPEED1 1
+#define BACKGROUND_SPEED2 2
+#define BACKGROUND_LAYER 0
 
 class Application;
 class Aircraft;

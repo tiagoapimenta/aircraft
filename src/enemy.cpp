@@ -25,13 +25,13 @@ Enemy::Enemy(Application *application, int type, int life, int left, int top, in
 	addEnemy(this);
 
 	application->addUpdater(this);
-	screen->addDrawer(1, this);
+	screen->addDrawer(ENEMY_LAYER, this);
 }
 
 Enemy::~Enemy()
 {
 	application->removeUpdater(this);
-	screen->removeDrawer(1, this);
+	screen->removeDrawer(ENEMY_LAYER, this);
 
 	delete image;
 

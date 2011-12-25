@@ -8,6 +8,7 @@
 
 #define ENEMY_SPEED 1
 #define ENEMY_EXPLOSION 10
+#define ENEMY_LAYER 1
 
 class Enemy : public IDrawable, public IUpdatable
 {
