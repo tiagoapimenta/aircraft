@@ -4,6 +4,7 @@
 #include "core.h"
 
 #define MAX_SHOT 4
+#define SHOT_ANIMATION 5
 
 class Shot : public IDrawable, public IUpdatable
 {

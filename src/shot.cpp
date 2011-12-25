@@ -55,6 +55,12 @@ void Shot::update()
 	top += move_top;
 	left += move_left;
 
+	if (size > 1) {
+		index++;
+		if (index > size * SHOT_ANIMATION) index = 0;
+		current_image = image[index / SHOT_ANIMATION];
+	}
+
 	// TODO: colission
 
 	if (top < 0 || top > SCREEN_HEIGHT + height || left < 0 || left > SCREEN_WIDTH + width) delete this;
