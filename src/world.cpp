@@ -1,12 +1,15 @@
 #include "world.h"
 
-World::World(Application *application) // TODO: inform level
+World::World(Application *application) // TODO: give level to open script?
 {
+
 	this->application = application;
 	screen = application->getScreen();
 	event = application->getEvent();
 
 	aircraft = new Aircraft(application);
+
+	new Enemy(application, 1);
 
 	background1 = new Image(IMG_BACKGROUND1);
 	background2 = new Image(IMG_BACKGROUND2);

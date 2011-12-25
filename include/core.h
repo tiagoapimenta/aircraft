@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -17,9 +18,10 @@
 #include "event.h"
 #include "world.h"
 #include "aircraft.h"
-//enemy
+#include "enemy.h"
 //fire
 //boss
+//exmplosion
 
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
@@ -38,5 +40,8 @@
 
 #define IMG_BACKGROUND1 "media/images/background1.png"
 #define IMG_BACKGROUND2 "media/images/background2.png"
+
+#define IMG_ENEMY_PREFIX "media/images/enemy"
+#define IMG_ENEMY_SUFFIX ".png"
 
 #endif
