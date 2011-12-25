@@ -18,6 +18,7 @@ public:
 	World(Application *application);
 	~World();
 
+	Aircraft* getAircraft();
 	void update();
 	void draw();
 

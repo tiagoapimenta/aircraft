@@ -22,8 +22,11 @@ public:
 
 	void update();
 	void draw();
+
+	//void shoot();
 	bool collide(int left, int top, int width, int height);
 	void damage(int damage);
+	void explode();
 protected:
 private:
 	static std::vector<Enemy*> enemies;
@@ -31,6 +34,7 @@ private:
 	Application *application;
 	Screen *screen;
 	Image *image;
+	Aircraft *aircraft;
 	int left;
 	int top;
 	int move;

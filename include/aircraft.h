@@ -11,6 +11,8 @@
 #define IMG_FIRE2 "media/images/fire2.png"
 
 #define AIRCRAFT_SPEED 4
+#define AIRCRAFT_LIFES 5
+#define AIRCRAFT_CONTINUES 3
 #define FIRE_LOOP 5
 #define FIRE_OFFSET_X 2
 #define FIRE_OFFSET_Y -1
@@ -32,6 +34,10 @@ public:
 	void keyDown(SDLKey key);
 	void keyUp(SDLKey key);
 
+	bool collide(int left, int top, int width, int height);
+	void damage(int damage);
+	void explode();
+
 protected:
 private:
 	Application* application;
@@ -50,6 +56,8 @@ private:
 	int move_left;
 	bool shooting;
 	int shot_interval;
+	int life;
+	int energy;
 };
 
 #endif // AIRCRAFT_H

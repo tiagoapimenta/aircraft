@@ -23,6 +23,8 @@ Aircraft::Aircraft(Application *application)
 	fire_index = 0;
 	shot_interval = 0;
 	shooting = false;
+	energy = AIRCRAFT_LIFES;
+	life = AIRCRAFT_CONTINUES;
 
 	current_aircraft = aircraft;
 	current_fire = fire1;
@@ -75,6 +77,8 @@ void Aircraft::update()
 		new Shot(application, SHOT_TYPE, left + width / 2 + move_left * FIRE_OFFSET_X, top, 0, SHOT_SPEED, SHOT_DAMAGE, false);
 		shot_interval = SHOT_INTERVAL;
 	}
+
+	// TODO: special bomb
 }
 
 void Aircraft::draw()
@@ -139,4 +143,27 @@ void Aircraft::keyUp(SDLKey key)
 	}
 }
 
+bool Aircraft::collide(int left, int top, int width, int height)
+{
+	return
+		energy > 0 &&
+	    left + width >= this->left &&
+	    top + height >= this->top &&
+	    left <= this->left + this->width &&
+	    top <= this->top + this->height;
+}
 
+void Aircraft::damage(int damage)
+{
+	energy -= damage;
+
+	if (energy <= 0) explode();
+}
+
+void Aircraft::explode()
+{
+	// TODO: do the explosion, but do not delete this
+	energy = AIRCRAFT_LIFES;
+	life--;
+	// TODO: game over if life == 0
+}

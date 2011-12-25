@@ -8,8 +8,6 @@ World::World(Application *application) // TODO: give level to open script?
 
 	aircraft = new Aircraft(application);
 
-	new Enemy(application, 1, 1, 15, -5, 1);
-
 	background1 = new Image(IMG_BACKGROUND1);
 	background2 = new Image(IMG_BACKGROUND2);
 	height1 = background1->getHeight();
@@ -32,6 +30,11 @@ World::~World()
 	delete aircraft;
 	delete background1;
 	delete background2;
+}
+
+Aircraft* World::getAircraft()
+{
+	return aircraft;
 }
 
 void World::update()

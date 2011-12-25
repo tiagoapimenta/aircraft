@@ -6,6 +6,8 @@ Application::Application()
 {
 	screen = Screen::getInstance();
 	event = Event::getInstance();
+	world = NULL;
+	points = 0;
 }
 
 Application* Application::getInstance()
@@ -17,7 +19,9 @@ Application* Application::getInstance()
 
 int Application::gameLoop()
 {
-	World *world = new World(this);
+	world = new World(this);
+
+	new Enemy(this, 1, 1, 15, -5, 1);
 
 	startCounter();
 
@@ -31,6 +35,7 @@ int Application::gameLoop()
 	}
 
 	delete world;
+	world = NULL;
 
 	quit();
 
@@ -71,6 +76,16 @@ Screen* Application::getScreen()
 Event* Application::getEvent()
 {
 	return event;
+}
+
+World* Application::getWorld()
+{
+	return world;
+}
+
+void Application::computePoints(int points)
+{
+	this->points += points;
 }
 
 void Application::quit()

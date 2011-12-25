@@ -6,6 +6,9 @@ Enemy::Enemy(Application *application, int type, int life, int left, int top, in
 {
 	this->application = application;
 	screen = application->getScreen();
+	aircraft = application->getWorld()->getAircraft();
+
+
 
 	std::ostringstream filename;
 	filename << IMG_ENEMY_PREFIX << type << IMG_ENEMY_SUFFIX;
@@ -80,7 +83,12 @@ void Enemy::update()
 {
 	top += move * ENEMY_SPEED;
 
-	// TODO: detect colision with hero, ENEMY_EXPLOSION
+	if (aircraft->collide(left, top, width, height))
+	{
+		aircraft->damage(life * ENEMY_EXPLOSION);
+		life = 0;
+		explode();
+	}
 
 	if (top > SCREEN_HEIGHT) {
 		delete this;
@@ -95,6 +103,7 @@ void Enemy::draw()
 bool Enemy::collide(int left, int top, int width, int height)
 {
 	return
+		life > 0 &&
 	    left + width >= this->left &&
 	    top + height >= this->top &&
 	    left <= this->left + this->width &&
@@ -105,7 +114,14 @@ void Enemy::damage(int damage)
 {
 	life -= damage;
 
-	// TODO: compute points
+	if (life < 0) application->computePoints(damage + life);
+	else application->computePoints(damage);
 
 	if (life <= 0) delete this;
+}
+
+void Enemy::explode()
+{
+	// TODO: do explosion
+	delete this;
 }

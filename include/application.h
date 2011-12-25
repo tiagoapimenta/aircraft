@@ -8,6 +8,7 @@
 
 class Screen;
 class Event;
+class World;
 
 class Application
 {
@@ -18,13 +19,18 @@ public:
 	void removeUpdater(IUpdatable *updater);
 	Screen* getScreen();
 	Event* getEvent();
+	World* getWorld();
+	void computePoints(int points);
 
 protected:
 private:
 	static Application *instance;
 	Screen *screen;
 	Event *event;
+	World *world;
 	Uint32 timer;
+	int points;
+
 	std::vector<IUpdatable*> updaters;
 
 	Application();

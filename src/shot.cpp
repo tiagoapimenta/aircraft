@@ -116,4 +116,5 @@ void Shot::draw()
 void Shot::explode()
 {
 	// TODO: do explosion, if damage > 1 then explosion bigger, and give damage again, 50% of damage
+	delete this;
 }
