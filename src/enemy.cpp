@@ -1,6 +1,6 @@
 #include "enemy.h"
 
-std::vector<Enemy*> Enemy::enemies;
+std::set<Enemy*> Enemy::enemies;
 
 Enemy::Enemy(Application *application, int type, int life, int left, int top, int move)
 {
@@ -40,12 +40,12 @@ Enemy::~Enemy()
 
 void Enemy::addEnemy(Enemy *enemy)
 {
-	enemies.push_back(enemy);
+	enemies.insert(enemy);
 }
 
 void Enemy::removeEnemy(Enemy *enemy)
 {
-	for (std::vector<Enemy*>::iterator it = enemies.begin() ; it < enemies.end(); it++ )
+	for (std::set<Enemy*>::iterator it = enemies.begin() ; it != enemies.end(); it++ )
 	{
 		if (*it == enemy)
 		{
@@ -57,7 +57,7 @@ void Enemy::removeEnemy(Enemy *enemy)
 
 void Enemy::deleteAll()
 {
-	for (std::vector<Enemy*>::iterator it = enemies.begin() ; it < enemies.end(); it++ )
+	for (std::set<Enemy*>::iterator it = enemies.begin() ; it != enemies.end(); it++ )
 	{
 		delete *it;
 	}
@@ -67,7 +67,7 @@ bool Enemy::checkShotCollision(int damage, int left, int top, int width, int hei
 {
 	bool collision = false;
 
-	for (std::vector<Enemy*>::iterator it = enemies.begin() ; it < enemies.end(); it++ )
+	for (std::set<Enemy*>::iterator it = enemies.begin() ; it != enemies.end(); it++ )
 	{
 		if ((*it)->collide(left, top, width, height))
 		{

@@ -2,7 +2,8 @@
 #define CORE_H
 
 #include <string>
-#include <vector>
+#include <set>
+#include <map>
 #include <iostream>
 #include <sstream>
 
@@ -14,6 +15,8 @@
 
 #include "application.h"
 #include "image.h"
+//audio
+//cache
 #include "screen.h"
 #include "event.h"
 #include "world.h"
@@ -21,6 +24,9 @@
 #include "enemy.h"
 #include "shot.h"
 //boss
-//exmplosion
+//explosion
+
+//aircraft immortal
+//pause
 
 #endif

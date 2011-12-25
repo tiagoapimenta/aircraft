@@ -17,7 +17,7 @@ protected:
 private:
 	static Event *instance;
 
-	std::vector<IKeyEventHandleable*> keyEvents;
+	std::set<IKeyEventHandleable*> keyEvents;
 
 	Event();
 };

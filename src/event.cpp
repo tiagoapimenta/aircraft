@@ -29,19 +29,17 @@ bool Event::poll()
 		case SDL_KEYDOWN:
 		{
 			if (event.key.keysym.sym == SDLK_ESCAPE) quit = true; // TODO: remove it
-			int length = keyEvents.size();
-			for (int i = 0; i < length; i++)
+			for (std::set<IKeyEventHandleable*>::iterator it = keyEvents.begin() ; it != keyEvents.end(); it++)
 			{
-				keyEvents[i]->keyDown(event.key.keysym.sym);
+				(*it)->keyDown(event.key.keysym.sym);
 			}
 			break;
 		}
 		case SDL_KEYUP:
 		{
-			int length = keyEvents.size();
-			for (int i = 0; i < length; i++)
+			for (std::set<IKeyEventHandleable*>::iterator it = keyEvents.begin() ; it != keyEvents.end(); it++)
 			{
-				keyEvents[i]->keyUp(event.key.keysym.sym);
+				(*it)->keyUp(event.key.keysym.sym);
 			}
 			break;
 		}
@@ -53,12 +51,12 @@ bool Event::poll()
 
 void Event::addKeyEvent(IKeyEventHandleable *keyEvent)
 {
-	keyEvents.push_back(keyEvent);
+	keyEvents.insert(keyEvent);
 }
 
 void Event::removeKeyEvent(IKeyEventHandleable *keyEvent)
 {
-	for (std::vector<IKeyEventHandleable*>::iterator it = keyEvents.begin() ; it < keyEvents.end(); it++ )
+	for (std::set<IKeyEventHandleable*>::iterator it = keyEvents.begin() ; it != keyEvents.end(); it++)
 	{
 		if (*it == keyEvent)
 		{

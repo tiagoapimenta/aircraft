@@ -1,6 +1,6 @@
 #include "shot.h"
 
-std::vector<Shot*> Shot::shots;
+std::set<Shot*> Shot::shots;
 
 Shot::Shot(Application *application, int type, int left, int top, int move_left, int move_top, int damage, bool enemy)
 {
@@ -58,12 +58,12 @@ Shot::~Shot()
 
 void Shot::addShot(Shot *shot)
 {
-	shots.push_back(shot);
+	shots.insert(shot);
 }
 
 void Shot::removeShot(Shot *shot)
 {
-	for (std::vector<Shot*>::iterator it = shots.begin() ; it < shots.end(); it++ )
+	for (std::set<Shot*>::iterator it = shots.begin() ; it != shots.end(); it++ )
 	{
 		if (*it == shot)
 		{
@@ -75,7 +75,7 @@ void Shot::removeShot(Shot *shot)
 
 void Shot::deleteAll()
 {
-	for (std::vector<Shot*>::iterator it = shots.begin() ; it < shots.end(); it++ )
+	for (std::set<Shot*>::iterator it = shots.begin() ; it != shots.end(); it++ )
 	{
 		delete *it;
 	}

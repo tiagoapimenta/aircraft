@@ -39,10 +39,9 @@ void Screen::render()
 
 	for (int k = 0; k < MAX_LAYERS; k++)
 	{
-		int length = drawers[k].size();
-		for (int i = 0; i < length; i++)
+		for (std::set<IDrawable*>::iterator it = drawers[k].begin() ; it != drawers[k].end(); it++)
 		{
-			drawers[k][i]->draw();
+			(*it)->draw();
 		}
 	}
 
@@ -53,14 +52,14 @@ void Screen::addDrawer(int layer, IDrawable *drawer)
 {
 	if (layer < 0 || layer > MAX_LAYERS) throw "Out of range";
 
-	drawers[layer].push_back(drawer);
+	drawers[layer].insert(drawer);
 }
 
 void Screen::removeDrawer(int layer, IDrawable *drawer)
 {
 	if (layer < 0 || layer > MAX_LAYERS) throw "Out of range";
 
-	for (std::vector<IDrawable*>::iterator it = drawers[layer].begin() ; it < drawers[layer].end(); it++ )
+	for (std::set<IDrawable*>::iterator it = drawers[layer].begin() ; it != drawers[layer].end(); it++)
 	{
 		if (*it == drawer)
 		{

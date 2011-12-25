@@ -29,7 +29,7 @@ public:
 	void explode();
 protected:
 private:
-	static std::vector<Enemy*> enemies;
+	static std::set<Enemy*> enemies;
 
 	Application *application;
 	Screen *screen;

@@ -31,7 +31,7 @@ private:
 	Uint32 timer;
 	int points;
 
-	std::vector<IUpdatable*> updaters;
+	std::set<IUpdatable*> updaters;
 
 	Application();
 

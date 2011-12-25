@@ -44,21 +44,20 @@ int Application::gameLoop()
 
 void Application::update()
 {
-	int length = updaters.size();
-	for (int i = 0; i < length; i++)
+	for (std::set<IUpdatable*>::iterator it = updaters.begin() ; it != updaters.end(); it++ )
 	{
-		updaters[i]->update();
+		(*it)->update();
 	}
 }
 
 void Application::addUpdater(IUpdatable *updater)
 {
-	updaters.push_back(updater);
+	updaters.insert(updater);
 }
 
 void Application::removeUpdater(IUpdatable *updater)
 {
-	for (std::vector<IUpdatable*>::iterator it = updaters.begin() ; it < updaters.end(); it++ )
+	for (std::set<IUpdatable*>::iterator it = updaters.begin() ; it != updaters.end(); it++ )
 	{
 		if (*it == updater)
 		{

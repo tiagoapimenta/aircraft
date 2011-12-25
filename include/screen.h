@@ -28,7 +28,7 @@ private:
 	static Screen *instance;
 
 	SDL_Surface *screen;
-	std::vector<IDrawable*> drawers[MAX_LAYERS];
+	std::set<IDrawable*> drawers[MAX_LAYERS];
 
 	Screen();
 	void clear();

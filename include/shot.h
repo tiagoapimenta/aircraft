@@ -24,7 +24,7 @@ public:
 	void draw();
 protected:
 private:
-	static std::vector<Shot*> shots;
+	static std::set<Shot*> shots;
 
 	Application *application;
 	Screen *screen;
