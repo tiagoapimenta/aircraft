@@ -16,10 +16,16 @@ public:
 	Shot(Application *application, int type, int left, int top, int move_left, int move_top, int damage, bool enemy);
 	~Shot();
 
+	static void addShot(Shot *shot);
+	static void removeShot(Shot *shot);
+	static void deleteAll();
+
 	void update();
 	void draw();
 protected:
 private:
+	static std::vector<Shot*> shots;
+
 	Application *application;
 	Screen *screen;
 	Image *image[MAX_SHOT];

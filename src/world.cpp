@@ -25,7 +25,7 @@ World::~World()
 	application->removeUpdater(this);
 	screen->removeDrawer(0, this);
 
-	//Shot::deleteAll();
+	Shot::deleteAll();
 	Enemy::deleteAll();
 	//Boss::deleteAll();
 

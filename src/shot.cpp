@@ -1,5 +1,7 @@
 #include "shot.h"
 
+std::vector<Shot*> Shot::shots;
+
 Shot::Shot(Application *application, int type, int left, int top, int move_left, int move_top, int damage, bool enemy)
 {
 	this->application = application;
@@ -35,6 +37,8 @@ Shot::Shot(Application *application, int type, int left, int top, int move_left,
 	this->enemy = enemy;
 	index = 0;
 
+	addShot(this);
+
 	application->addUpdater(this);
 	screen->addDrawer(2, this);
 }
@@ -47,6 +51,33 @@ Shot::~Shot()
 	for (int i = size; i--; )
 	{
 		delete image[i];
+	}
+
+	removeShot(this);
+}
+
+void Shot::addShot(Shot *shot)
+{
+	shots.push_back(shot);
+}
+
+void Shot::removeShot(Shot *shot)
+{
+	for (std::vector<Shot*>::iterator it = shots.begin() ; it < shots.end(); it++ )
+	{
+		if (*it == shot)
+		{
+			shots.erase(it);
+			break;
+		}
+	}
+}
+
+void Shot::deleteAll()
+{
+	for (std::vector<Shot*>::iterator it = shots.begin() ; it < shots.end(); it++ )
+	{
+		delete *it;
 	}
 }
 
