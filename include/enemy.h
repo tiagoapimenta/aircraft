@@ -18,7 +18,7 @@ public:
 	~Enemy();
 
 	static void deleteAll();
-	static bool checkShotCollision(int damage, int left, int top, int width, int height);
+	static bool checkCollisionDamage(int damage, int left, int top, int width, int height);
 
 	void update();
 	void draw();

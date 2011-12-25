@@ -29,6 +29,7 @@ Aircraft::Aircraft(Application *application, HUD *hud)
 	energy = AIRCRAFT_LIFES;
 	life = AIRCRAFT_CONTINUES;
 	bomb = AIRCRAFT_BOMBS;
+	explosion_time = 0;
 
 	current_aircraft = aircraft;
 	current_fire = fire1;
@@ -60,8 +61,11 @@ void Aircraft::update()
 		return;
 	}
 
-	left += move_left * AIRCRAFT_SPEED;
-	top += move_top * AIRCRAFT_SPEED;
+	if (explosion_time == 0)
+	{
+		left += move_left * AIRCRAFT_SPEED;
+		top += move_top * AIRCRAFT_SPEED;
+	}
 	if (left < 0)
 	{
 		left = 0;
@@ -89,14 +93,15 @@ void Aircraft::update()
 		shot_interval = SHOT_INTERVAL;
 	}
 
-	if (ghost_time > 0) ghost_time--;
+	// TODO: shoot special bomb
 
-	// TODO: special bomb
+	if (explosion_time > 0) explosion_time--;
+	else if (ghost_time > 0) ghost_time--;
 }
 
 void Aircraft::draw()
 {
-	if ((ghost_time / GHOST_INTERVAL) % 2 == 1) return;
+	if (explosion_time || (ghost_time / GHOST_INTERVAL) % 2 == 1) return;
 
 	screen->blitImage(left, top, animation ? aircraft : current_aircraft);
 	screen->blitImage(left + (width - fire_width) / 2 + (animation ? 0 : move_left) * FIRE_OFFSET_X, top + height + FIRE_OFFSET_Y, current_fire);
@@ -180,10 +185,12 @@ void Aircraft::damage(int damage)
 
 void Aircraft::explode()
 {
-	// TODO: do the explosion, but do not delete this
+	new Explosion(application, SHOT_EXPLOSION, SHOT_DELAY, 0, left + width / 2, top + height / 2);
+	explosion_time = SHOT_DELAY;
+	ghost_time = GHOST_TIME;
+
 	energy = AIRCRAFT_LIFES;
 	life--;
-	ghost_time = GHOST_TIME;
 	// TODO: game over if life == 0
 
 	hud->setLifes(energy);

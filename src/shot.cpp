@@ -2,7 +2,7 @@
 
 std::set<Shot*> Shot::shots;
 
-Shot::Shot(Application *application, int type, int left, int top, int move_left, int move_top, int damage, bool enemy)
+Shot::Shot(Application *application, int type, int left, int top, int move_left, int move_top, int damage, bool enemy, bool play_sound)
 {
 	this->application = application;
 	screen = application->getScreen();
@@ -43,7 +43,7 @@ Shot::Shot(Application *application, int type, int left, int top, int move_left,
 	application->addUpdater(this);
 	screen->addDrawer(SHOT_LAYER, this);
 
-	application->getAudio()->playSound((type == 1) ? SND_SHOT1 : SND_SHOT2);
+	if (play_sound) application->getAudio()->playSound((type == 1) ? SND_SHOT1 : SND_SHOT2);
 }
 
 Shot::~Shot()
@@ -84,7 +84,7 @@ void Shot::update()
 	}
 	else
 	{
-		if (Enemy::checkShotCollision(damage, left, top, width, height)) // TODO: do it with boss too
+		if (Enemy::checkCollisionDamage(damage, left, top, width, height)) // TODO: do it with boss too
 		{
 			explode();
 			return;
@@ -102,6 +102,6 @@ void Shot::draw()
 void Shot::explode()
 {
 	if (bomb) new Explosion(application, BOMB_EXPLOSION, BOMB_DELAY, damage / 2, left - width / 2, top - height / 2);
-	else new Explosion(application, SHOT_EXPLOSION, SHOT_DELAY, 0, left - width / 2, top - height / 2);
+	//else new Explosion(application, SHOT_EXPLOSION, SHOT_DELAY, 0, left - width / 2, top - height / 2);
 	delete this;
 }

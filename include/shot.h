@@ -21,7 +21,7 @@
 class Shot : public IDrawable, public IUpdatable
 {
 public:
-	Shot(Application *application, int type, int left, int top, int move_left, int move_top, int damage, bool enemy);
+	Shot(Application *application, int type, int left, int top, int move_left, int move_top, int damage, bool enemy, bool play_sound = true);
 	~Shot();
 
 	static void deleteAll();

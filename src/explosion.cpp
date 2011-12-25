@@ -2,7 +2,7 @@
 
 std::set<Explosion*> Explosion::explosions;
 
-Explosion::Explosion(Application *application, int type, int delay, int damage, int left, int top)
+Explosion::Explosion(Application *application, int type, int delay, int damage, int left, int top, bool play_sound)
 {
 	this->application = application;
 	screen = application->getScreen();
@@ -23,11 +23,11 @@ Explosion::Explosion(Application *application, int type, int delay, int damage, 
 	application->addUpdater(this);
 	screen->addDrawer(EXPLOSION_LAYER, this);
 
-	application->getAudio()->playSound(SND_EXPLOSION);
+	if (play_sound) application->getAudio()->playSound(SND_EXPLOSION);
 
 	if (damage)
 	{
-		// TODO: Apply more damage to enemies
+		Enemy::checkCollisionDamage(damage, this->left, this->top, width, height);
 	}
 }
 

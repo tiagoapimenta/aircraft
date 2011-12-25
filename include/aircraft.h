@@ -24,7 +24,7 @@
 #define SHOT_SPEED -5
 #define SHOT_DAMAGE 1
 #define GHOST_TIME 120
-#define GHOST_INTERVAL 5
+#define GHOST_INTERVAL 10
 
 class Application;
 
@@ -66,6 +66,7 @@ private:
 	int energy;
 	int bomb;
 	int ghost_time;
+	int explosion_time;
 	bool animation;
 };
 

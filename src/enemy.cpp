@@ -46,7 +46,7 @@ void Enemy::deleteAll()
 	}
 }
 
-bool Enemy::checkShotCollision(int damage, int left, int top, int width, int height)
+bool Enemy::checkCollisionDamage(int damage, int left, int top, int width, int height)
 {
 	bool collision = false;
 
@@ -100,11 +100,11 @@ void Enemy::damage(int damage)
 	if (life < 0) hud->computePoints((damage + life) * ENEMY_POINTS);
 	else hud->computePoints(damage * ENEMY_POINTS);
 
-	if (life <= 0) delete this;
+	if (life <= 0) explode();
 }
 
 void Enemy::explode()
 {
-	// TODO: do explosion
+	new Explosion(application, SHOT_EXPLOSION, SHOT_DELAY, 0, left + width / 2, top + height / 2);
 	delete this;
 }
