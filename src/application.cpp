@@ -109,8 +109,8 @@ void Application::waitFPS()
 {
 	Uint32 elapsed_time = SDL_GetTicks() - timer;
 
-	if (elapsed_time < TIME_PER_FRAME) SDL_Delay(TIME_PER_FRAME - elapsed_time);
-	else if (elapsed_time != TIME_PER_FRAME) std::cerr << "Overlapped time: " << elapsed_time - TIME_PER_FRAME << std::endl;
+	if (elapsed_time < TIME_PER_FRAME - TIME_PER_FRAME_OFF) SDL_Delay(TIME_PER_FRAME - TIME_PER_FRAME_OFF - elapsed_time);
+	else if (elapsed_time > TIME_PER_FRAME) std::cerr << "Overlapped time: " << elapsed_time - TIME_PER_FRAME << std::endl;
 
 	timer += elapsed_time;
 }
