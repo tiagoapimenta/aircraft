@@ -36,6 +36,7 @@ Image::Image(std::string filename)
 
 Image::Image(SDL_Surface *image)
 {
+	from_file = false;
 	this->image = image;
 }
 

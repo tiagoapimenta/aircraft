@@ -56,12 +56,5 @@ void Screen::removeDrawer(int layer, IDrawable *drawer)
 {
 	if (layer < 0 || layer > MAX_LAYERS) throw "Out of range";
 
-	for (std::set<IDrawable*>::iterator it = drawers[layer].begin() ; it != drawers[layer].end(); it++)
-	{
-		if (*it == drawer)
-		{
-			drawers[layer].erase(it);
-			break;
-		}
-	}
+	drawers[layer].erase(drawer);
 }

@@ -11,6 +11,7 @@ public:
 
 	void playMusic(std::string filename);
 	bool isMusicPaused();
+	bool isMusicPlaying();
 	void playMusic();
 	void pauseMusic();
 	void stopMusic();

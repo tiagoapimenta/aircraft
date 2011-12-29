@@ -32,6 +32,7 @@
 		<Unit filename="include/core.h" />
 		<Unit filename="include/enemy.h" />
 		<Unit filename="include/event.h" />
+		<Unit filename="include/explosion.h" />
 		<Unit filename="include/font.h" />
 		<Unit filename="include/hud.h" />
 		<Unit filename="include/image.h" />
@@ -45,6 +46,7 @@
 		<Unit filename="src/audio.cpp" />
 		<Unit filename="src/enemy.cpp" />
 		<Unit filename="src/event.cpp" />
+		<Unit filename="src/explosion.cpp" />
 		<Unit filename="src/font.cpp" />
 		<Unit filename="src/hud.cpp" />
 		<Unit filename="src/image.cpp" />

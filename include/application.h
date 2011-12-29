@@ -18,13 +18,15 @@ public:
 	~Application();
 
 	int gameLoop();
-	void addUpdater(IUpdatable *updater);
+	void addUpdater(IUpdatable *updater, bool continue_on_pause = false); // TODO: AddUpdateListener
 	void removeUpdater(IUpdatable *updater);
 	Screen* getScreen();
 	Event* getEvent();
 	Audio* getAudio();
 	World* getWorld();
 	void computePoints(int points);
+	bool isPaused();
+	void pause(bool pause);
 
 protected:
 private:
@@ -33,8 +35,10 @@ private:
 	Audio *audio;
 	World *world;
 	Uint32 timer;
+	bool paused;
+	bool playing_paused_music;
 
-	std::set<IUpdatable*> updaters;
+	std::map<IUpdatable*, bool> updaters;
 
 	void startCounter();
 	void waitFPS();

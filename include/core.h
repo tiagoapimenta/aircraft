@@ -26,8 +26,6 @@
 #include "enemy.h"
 #include "shot.h"
 #include "explosion.h"
-//boss
-
-//pause
+// TODO: item, boss
 
 #endif

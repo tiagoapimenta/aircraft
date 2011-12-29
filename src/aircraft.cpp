@@ -97,14 +97,27 @@ void Aircraft::update()
 
 	if (explosion_time > 0) explosion_time--;
 	else if (ghost_time > 0) ghost_time--;
+
+	last_aircraft = current_aircraft;
+	last_move_left = move_left;
 }
 
 void Aircraft::draw()
 {
 	if (explosion_time || (ghost_time / GHOST_INTERVAL) % 2 == 1) return;
 
-	screen->blitImage(left, top, animation ? aircraft : current_aircraft);
-	screen->blitImage(left + (width - fire_width) / 2 + (animation ? 0 : move_left) * FIRE_OFFSET_X, top + height + FIRE_OFFSET_Y, current_fire);
+	Image *used_aircraft = current_aircraft;
+
+	if (application->isPaused()) used_aircraft = last_aircraft;
+	else if (animation) used_aircraft = aircraft;
+
+	int used_move_left = move_left;
+
+	if (application->isPaused()) used_move_left = last_move_left;
+	else if (animation) used_move_left = 0;
+
+	screen->blitImage(left, top, used_aircraft );
+	screen->blitImage(left + (width - fire_width) / 2 + used_move_left * FIRE_OFFSET_X, top + height + FIRE_OFFSET_Y, current_fire);
 }
 
 void Aircraft::keyDown(SDLKey key)

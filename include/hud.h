@@ -17,13 +17,15 @@
 
 class Font;
 
-class HUD : public IDrawable
+class HUD : public IKeyEventHandleable, public IDrawable
 {
 public:
 	HUD(Application *application);
 	~HUD();
 
 	void draw();
+	void keyDown(SDLKey key);
+	void keyUp(SDLKey key);
 
 	void computePoints(int points);
 
@@ -34,6 +36,7 @@ protected:
 private:
 	Application *application;
 	Screen *screen;
+	Event* event;
 	Font *font;
 	Image *img_life;
 	Image *img_bomb;

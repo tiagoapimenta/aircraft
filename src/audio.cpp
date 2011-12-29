@@ -47,6 +47,11 @@ bool Audio::isMusicPaused()
 	return Mix_PausedMusic() == 1;
 }
 
+bool Audio::isMusicPlaying()
+{
+	return Mix_PlayingMusic() != 0;
+}
+
 void Audio::playMusic()
 {
 	if (Mix_PlayingMusic() == 0)

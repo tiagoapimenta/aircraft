@@ -45,26 +45,22 @@ int Application::gameLoop()
 
 void Application::update()
 {
-	for (std::set<IUpdatable*>::iterator it = updaters.begin() ; it != updaters.end(); it++ )
+	for (std::map<IUpdatable*, bool>::iterator it = updaters.begin() ; it != updaters.end(); it++ )
 	{
-		(*it)->update();
+		if (!paused || it->second) it->first->update();
 	}
 }
 
-void Application::addUpdater(IUpdatable *updater)
+void Application::addUpdater(IUpdatable *updater, bool continue_on_pause)
 {
-	updaters.insert(updater);
+	updaters.insert(std::make_pair(updater, continue_on_pause)); // TODO: maybe updaters[updater] = continue_on_pause;
 }
 
 void Application::removeUpdater(IUpdatable *updater)
 {
-	for (std::set<IUpdatable*>::iterator it = updaters.begin() ; it != updaters.end(); it++ )
+	if (updaters.count(updater) > 0)
 	{
-		if (*it == updater)
-		{
-			updaters.erase(it);
-			break;
-		}
+		updaters.erase(updater);
 	}
 }
 
@@ -86,6 +82,22 @@ Audio* Application::getAudio()
 World* Application::getWorld()
 {
 	return world;
+}
+
+bool Application::isPaused()
+{
+	return paused;
+}
+
+void Application::pause(bool pause)
+{
+	paused = pause;
+	if (paused)
+	{
+		playing_paused_music = audio->isMusicPlaying();
+		if (playing_paused_music) audio->pauseMusic();
+	}
+	else if (playing_paused_music) audio->playMusic();
 }
 
 void Application::startCounter()

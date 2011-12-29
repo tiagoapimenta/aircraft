@@ -19,7 +19,6 @@ bool Event::poll()
 			break;
 		case SDL_KEYDOWN:
 		{
-			if (event.key.keysym.sym == SDLK_ESCAPE) quit = true; // TODO: remove it
 			for (std::set<IKeyEventHandleable*>::iterator it = keyEvents.begin() ; it != keyEvents.end(); it++)
 			{
 				(*it)->keyDown(event.key.keysym.sym);
@@ -47,12 +46,5 @@ void Event::addKeyEvent(IKeyEventHandleable *keyEvent)
 
 void Event::removeKeyEvent(IKeyEventHandleable *keyEvent)
 {
-	for (std::set<IKeyEventHandleable*>::iterator it = keyEvents.begin() ; it != keyEvents.end(); it++)
-	{
-		if (*it == keyEvent)
-		{
-			keyEvents.erase(it);
-			break;
-		}
-	}
+	keyEvents.erase(keyEvent);
 }

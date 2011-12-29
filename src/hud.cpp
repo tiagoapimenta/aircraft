@@ -4,6 +4,7 @@ HUD::HUD(Application *application)
 {
 	this->application = application;
 	screen = application->getScreen();
+	event = application->getEvent();
 
 	SDL_Color black = {0, 0, 128};
 	font = new Font(24, black);
@@ -25,11 +26,13 @@ HUD::HUD(Application *application)
 	points = 0;
 	img_points = font->createText("0");
 
+	event->addKeyEvent(this);
 	screen->addDrawer(HUD_LAYER, this);
 }
 
 HUD::~HUD()
 {
+	event->removeKeyEvent(this);
 	screen->removeDrawer(HUD_LAYER, this);
 
 	delete font;
@@ -56,6 +59,18 @@ void HUD::draw()
 	for (int i = bombs; i--; )
 	{
 		screen->blitImage(HUD_MARGIN_LEFT + i * (img_bomb_width + HUD_MARGIN_SPAN), SCREEN_HEIGHT - HUD_MARGIN_BOTTOM - img_bomb_height, img_bomb);
+	}
+}
+
+void HUD::keyDown(SDLKey key)
+{
+}
+
+void HUD::keyUp(SDLKey key)
+{
+	if (key == SDLK_ESCAPE)
+	{
+		application->pause(!application->isPaused());
 	}
 }
 
