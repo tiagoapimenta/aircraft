@@ -42,10 +42,13 @@ private:
 	Image *img_bomb;
 	Image *img_continue;
 	Image *img_points;
+	Image *img_pause;
 	int lifes;
 	int bombs;
 	int continues;
 	int points;
+	int img_pause_width;
+	int img_pause_height;
 	int img_life_width;
 	int img_life_height;
 	int img_bomb_width;
