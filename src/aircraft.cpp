@@ -33,6 +33,8 @@ Aircraft::Aircraft(Application *application, HUD *hud)
 
 	current_aircraft = aircraft;
 	current_fire = fire1;
+	used_move_left = 0;
+	used_aircraft = aircraft;
 
 	event->addKeyEvent(this);
 	application->addUpdater(this);
@@ -98,25 +100,15 @@ void Aircraft::update()
 	if (explosion_time > 0) explosion_time--;
 	else if (ghost_time > 0) ghost_time--;
 
-	last_aircraft = current_aircraft;
-	last_move_left = move_left;
+	used_aircraft = current_aircraft;
+	used_move_left = move_left;
 }
 
 void Aircraft::draw()
 {
 	if (explosion_time || (ghost_time / GHOST_INTERVAL) % 2 == 1) return;
 
-	Image *used_aircraft = current_aircraft;
-
-	if (application->isPaused()) used_aircraft = last_aircraft;
-	else if (animation) used_aircraft = aircraft;
-
-	int used_move_left = move_left;
-
-	if (application->isPaused()) used_move_left = last_move_left;
-	else if (animation) used_move_left = 0;
-
-	screen->blitImage(left, top, used_aircraft );
+	screen->blitImage(left, top, used_aircraft);
 	screen->blitImage(left + (width - fire_width) / 2 + used_move_left * FIRE_OFFSET_X, top + height + FIRE_OFFSET_Y, current_fire);
 }
 

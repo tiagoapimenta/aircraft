@@ -49,7 +49,7 @@ private:
 	Screen* screen;
 	Event* event;
 	HUD* hud;
-	Image *aircraft, *aircraft_left, *aircraft_right, *current_aircraft, *last_aircraft;
+	Image *aircraft, *aircraft_left, *aircraft_right, *current_aircraft, *used_aircraft;
 	Image *fire1, *fire2, *current_fire;
 	int width;
 	int height;
@@ -60,7 +60,7 @@ private:
 	int top;
 	int move_top;
 	int move_left;
-	int last_move_left;
+	int used_move_left;
 	bool shooting;
 	int shot_interval;
 	int life;
