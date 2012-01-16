@@ -10,11 +10,8 @@ World::World(Application *application) // TODO: give level to open script?
 	hud = new HUD(application);
 	aircraft = new Aircraft(application, hud);
 
-	background1 = new Image(IMG_BACKGROUND1);
-	background2 = new Image(IMG_BACKGROUND2);
-	height1 = background1->getHeight();
-	height2 = background2->getHeight();
-	position1 = position2 = 0;
+	addBackground(1, BACKGROUND_SPEED1);
+	addBackground(2, BACKGROUND_SPEED2);
 
 	application->addUpdater(this);
 	screen->addDrawer(BACKGROUND_LAYER, this);
@@ -34,10 +31,14 @@ World::~World()
 	Explosion::deleteAll();
 	//Boss::deleteAll();
 
+	for (std::vector<Background>::iterator it = backgrounds.begin() ; it != backgrounds.end(); it++ )
+	{
+		delete it->image;
+		backgrounds.erase(it);
+	}
+
 	delete aircraft;
 	delete hud;
-	delete background1;
-	delete background2;
 }
 
 Aircraft* World::getAircraft()
@@ -52,16 +53,33 @@ HUD* World::getHUD()
 
 void World::update()
 {
-	position1 += BACKGROUND_SPEED1;
-	position2 += BACKGROUND_SPEED2;
-	if (position1 > height1) position1 = 0;
-	if (position2 > height2) position2 = 0;
+	for (std::vector<Background>::iterator it = backgrounds.begin() ; it != backgrounds.end(); it++ )
+	{
+		it->position += it->speed;
+		if (it->position > it->height) it->position = 0;
+	}
 }
 
 void World::draw()
 {
-	screen->blitImage(0, position1 - height1, background1);
-	if (position1 < SCREEN_HEIGHT) screen->blitImage(0, position1, background1);
-	screen->blitImage(0, position2 - height2, background2);
-	if (position2 < SCREEN_HEIGHT) screen->blitImage(0, position2, background2);
+	for (std::vector<Background>::iterator it = backgrounds.begin() ; it != backgrounds.end(); it++ )
+	{
+		screen->blitImage(0, it->position - it->height, it->image);
+		if (it->position < SCREEN_HEIGHT) screen->blitImage(0, it->position, it->image);
+	}
+}
+
+void World::addBackground(int id, int speed)
+{
+	Background background;
+
+	std::ostringstream filename;
+	filename << IMG_BACKGROUND_PREFIX << id << IMG_BACKGROUND_SUFFIX;
+
+	background.image = new Image(filename.str());
+	background.speed = speed;
+	background.position = 0;
+	background.height = background.image->getHeight();
+
+	backgrounds.push_back(background);
 }

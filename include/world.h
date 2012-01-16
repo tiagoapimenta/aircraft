@@ -3,8 +3,8 @@
 
 #include "core.h"
 
-#define IMG_BACKGROUND1 "media/images/background1.png"
-#define IMG_BACKGROUND2 "media/images/background2.png"
+#define IMG_BACKGROUND_PREFIX "media/images/background"
+#define IMG_BACKGROUND_SUFFIX ".png"
 
 #define SND_MUSIC_LEVEL1 "media/audio/level1.mid"
 
@@ -15,6 +15,14 @@
 class Application;
 class Aircraft;
 class HUD;
+
+struct Background
+{
+	Image *image;
+	int speed;
+	int height;
+	int position;
+};
 
 class World : public IDrawable, public IUpdatable
 {
@@ -34,11 +42,9 @@ private:
 	Audio *audio;
 	HUD *hud;
 	Aircraft *aircraft;
-	Image *background1, *background2;
-	int height1;
-	int height2;
-	int position1;
-	int position2;
+	std::vector<Background> backgrounds;
+
+	void addBackground(int id, int speed);
 };
 
 #endif // WORLD_H
