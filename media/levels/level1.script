@@ -1,0 +1,277 @@
+background
+	# image <id> <speed>
+	image 1 1
+	image 2 5
+end
+enemies
+	# enemy <name> <image> <shot> <life> <speed>
+	enemy raptor 1 2 1 2
+	enemy hornet 2 3 2 1
+	# boss <name> <image> <shield life> <life>
+	boss mothership 1 20 50
+		shots...
+		sequences ...
+			move...
+			shot...
+		end
+	end
+end
+#music <level|boss> <number>
+music level 1
+delay 2000
+route
+	# raise <enemy> <left> <top>
+	raise raptor 160 0
+		# move <left> <top>
+		move 160 140
+		move 300 280
+	end
+	raise raptor 160 -50
+		move 160 140
+		move 20 280
+	end
+end
+delay 500
+route
+	raise raptor 20 0
+		move 20 140
+		move 160 280
+	end
+	raise raptor 300 0
+		move 300 140
+		move 160 280
+	end
+end
+delay 500
+route
+	raise raptor 20 0
+		move 20 240
+		move 260 0
+	end
+	raise raptor 300 0
+		move 300 240
+		move 60 0
+	end
+end
+delay 500
+route
+	raise raptor 20 0
+		move 160 140
+		shot
+		move 160 0
+	end
+	raise raptor 350 -50
+		move 160 140
+		shot
+		move 160 0
+	end
+end
+delay 500
+route
+	raise hornet 160 0
+		move 160 133
+		shot 2
+		move 160 266
+	end
+end
+delay 500
+route
+	raise hornet 160 -40
+		move 160 133
+		shot 3
+		move 160 266
+	end
+	raise raptor 20 0
+		move 20 140
+		shot
+		move 20 280
+	end
+	raise raptor 300 0
+		move 300 140
+		shot
+		move 300 280
+	end
+end
+delay 500
+route
+	raise raptor 53 0
+		move 53 140
+		shot
+		move 53 280
+	end
+	raise raptor 107 -20
+		move 107 140
+		shot
+		move 107 280
+	end
+	raise raptor 160 -40
+		move 160 140
+		shot
+		move 160 280
+	end
+	raise raptor 213 -60
+		move 213 140
+		shot
+		move 213 280
+	end
+	raise raptor 267 -80
+		move 267 140
+		shot
+		move 267 280
+	end
+end
+delay 500
+route
+	raise raptor 53 -80
+		move 53 140
+		shot
+		move 53 280
+	end
+	raise raptor 107 -60
+		move 107 140
+		shot
+		move 107 280
+	end
+	raise raptor 160 -40
+		move 160 140
+		shot
+		move 160 280
+	end
+	raise raptor 213 -20
+		move 213 140
+		shot
+		move 213 280
+	end
+	raise raptor 267 0
+		move 267 140
+		shot
+		move 267 280
+	end
+end
+delay 500
+route
+	raise hornet 160 0
+		move 160 133
+		shot 3
+		move 160 266
+	end
+	raise hornet 80 0
+		move 133 133
+		shot 3
+		move 186 266
+	end
+	raise hornet 240 0
+		move 187 133
+		shot
+		move 134 266
+	end
+end
+delay 500
+route
+	raise hornet 160 -40
+		move 160 133
+		shot 3
+		move 160 266
+	end
+	raise raptor 20 0
+		move 20 140
+		shot
+		move 20 280
+	end
+	raise raptor 300 0
+		move 300 140
+		shot
+		move 300 280
+	end
+end
+delay 500
+route
+	raise raptor 53 0
+		move 53 140
+		shot
+		move 53 280
+	end
+	raise raptor 107 -20
+		move 107 140
+		shot
+		move 107 280
+	end
+	raise raptor 160 -40
+		move 160 140
+		shot
+		move 160 280
+	end
+	raise raptor 213 -60
+		move 213 140
+		shot
+		move 213 280
+	end
+	raise raptor 267 -80
+		move 267 140
+		shot
+		move 267 280
+	end
+end
+delay 500
+route
+	raise raptor 53 -80
+		move 53 140
+		shot
+		move 53 280
+	end
+	raise raptor 107 -60
+		move 107 140
+		shot
+		move 107 280
+	end
+	raise raptor 160 -40
+		move 160 140
+		shot
+		move 160 280
+	end
+	raise raptor 213 -20
+		move 213 140
+		shot
+		move 213 280
+	end
+	raise raptor 267 0
+		move 267 140
+		shot
+		move 267 280
+	end
+end
+delay 500
+route
+	raise hornet 160 0
+		move 160 133
+		shot 3
+		move 160 266
+	end
+	raise hornet 80 0
+		move 133 133
+		shot 3
+		move 186 266
+	end
+	raise hornet 240 0
+		move 187 133
+		shot
+		move 134 266
+	end
+end
+delay 500
+music boss 1
+route
+	raise raptor 20 -50
+		move 20 280
+	end
+	raise raptor 300 0
+		move 300 280
+	end
+end
+delay 3000
+route
+	raise boss 160 0
+		move 160 100
+		fight
+	end
+end

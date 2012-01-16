@@ -2,7 +2,7 @@
 
 std::set<Enemy*> Enemy::enemies;
 
-Enemy::Enemy(Application *application, int type, int life, int left, int top, int move)
+Enemy::Enemy(Application *application, int type, int life, int left, int top, int move) // moves sequence
 {
 	this->application = application;
 	screen = application->getScreen();
@@ -73,7 +73,7 @@ void Enemy::update()
 		explode();
 	}
 
-	if (top > SCREEN_HEIGHT) {
+	if (top > SCREEN_HEIGHT) { // do moves
 		delete this;
 	}
 }
