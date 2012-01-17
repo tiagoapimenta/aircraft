@@ -2,27 +2,35 @@
 
 std::set<Shot*> Shot::shots;
 
-Shot::Shot(Application *application, int type, int left, int top, int move_left, int move_top, int damage, bool enemy, bool play_sound)
+Shot::Shot(Application *application, int type, bool animation, int left, int top, int move_left, int move_top, int damage, bool enemy, bool play_sound)
 {
 	this->application = application;
 	screen = application->getScreen();
+	std::string preffix = IMG_SHOT_PREFIX;
 
-	this->bomb = type == 3;
+	if (type < 0)
+	{
+		bomb = true;
+		type *= -1;
+		preffix = IMG_BOMB_PREFIX;
+	}
+	else bomb = false;
+
 	std::ostringstream filename;
-	if (type == 3)
+	if (animation)
 	{
 		size = 4;
 		for (int i = size; i--; )
 		{
 			filename.str("");
-			filename << IMG_SHOT_PREFIX << type << IMG_SHOT_SEPARATOR << i + 1 << IMG_SHOT_SUFFIX;
+			filename << preffix << type << IMG_SHOT_SEPARATOR << i + 1 << IMG_SHOT_SUFFIX;
 			image[i] = new Image(filename.str());
 		}
 	}
 	else
 	{
 		size = 1;
-		filename << IMG_SHOT_PREFIX << type << IMG_SHOT_SUFFIX;
+		filename << preffix << type << IMG_SHOT_SUFFIX;
 		image[0] = new Image(filename.str());
 	}
 	current_image = image[0];
@@ -89,6 +97,12 @@ void Shot::update()
 			explode();
 			return;
 		}
+	}
+
+	if (bomb && top < BOMB_PADDING)
+	{
+		explode();
+		return;
 	}
 
 	if (top < 0 || top > SCREEN_HEIGHT + height || left < 0 || left > SCREEN_WIDTH + width) delete this;

@@ -24,6 +24,8 @@ Aircraft::Aircraft(Application *application, HUD *hud)
 	fire_index = 0;
 	shot_interval = 0;
 	shooting = false;
+	bomb_interval = 0;
+	bombing = false;
 	animation = true;
 	ghost_time = GHOST_TIME;
 	energy = AIRCRAFT_LIFES;
@@ -90,12 +92,21 @@ void Aircraft::update()
 	if (fire_index >= 2 * FIRE_LOOP) fire_index = 0;
 
 	if (shot_interval > 0) shot_interval--;
-	else if (shooting && shot_interval == 0) {
-		new Shot(application, SHOT_TYPE, left + width / 2 + move_left * FIRE_OFFSET_X, top, 0, SHOT_SPEED, SHOT_DAMAGE, false);
+	else if (shooting && shot_interval == 0)
+	{
+		new Shot(application, SHOT_TYPE, false, left + width / 2 + move_left * FIRE_OFFSET_X, top, 0, SHOT_SPEED, SHOT_DAMAGE, false);
 		shot_interval = SHOT_INTERVAL;
 	}
 
 	// TODO: shoot special bomb
+	if (bomb_interval > 0) bomb_interval--;
+	else if (bombing && bomb_interval == 0 && bomb > 0)
+	{
+		new Shot(application, -BOMB_TYPE, true, left + width / 2 + move_left * FIRE_OFFSET_X, top, 0, BOMB_SPEED, BOMB_DAMAGE, false);
+		bomb_interval = BOMB_INTERVAL;
+		bomb--;
+		hud->setBombs(bomb);
+	}
 
 	if (explosion_time > 0) explosion_time--;
 	else if (ghost_time > 0) ghost_time--;
@@ -132,6 +143,9 @@ void Aircraft::keyDown(SDLKey key)
 	case SDLK_LCTRL:
 		shooting = true;
 		break;
+	case SDLK_SPACE:
+		bombing = true;
+		break;
 	default:
 		break;
 	}
@@ -162,6 +176,9 @@ void Aircraft::keyUp(SDLKey key)
 		break;
 	case SDLK_LCTRL:
 		shooting = false;
+		break;
+	case SDLK_SPACE:
+		bombing = false;
 		break;
 	default:
 		break;

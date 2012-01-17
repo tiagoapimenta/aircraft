@@ -23,6 +23,10 @@
 #define SHOT_TYPE 1
 #define SHOT_SPEED -5
 #define SHOT_DAMAGE 1
+#define BOMB_INTERVAL 80
+#define BOMB_TYPE 1
+#define BOMB_SPEED -3
+#define BOMB_DAMAGE 10
 #define GHOST_TIME 120
 #define GHOST_INTERVAL 10
 
@@ -63,6 +67,8 @@ private:
 	int used_move_left;
 	bool shooting;
 	int shot_interval;
+	bool bombing;
+	int bomb_interval;
 	int life;
 	int energy;
 	int bomb;
