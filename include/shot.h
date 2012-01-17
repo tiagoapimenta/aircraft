@@ -36,6 +36,7 @@ private:
 
 	Application *application;
 	Screen *screen;
+	Aircraft *aircraft;
 	Image *image[MAX_SHOT];
 	Image *current_image;
 	bool bomb;

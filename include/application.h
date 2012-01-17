@@ -19,7 +19,7 @@ public:
 	~Application();
 
 	int gameLoop();
-	void addUpdater(IUpdatable *updater, bool continue_on_pause = false); // TODO: AddUpdateListener
+	void addUpdater(IUpdatable *updater, bool continue_on_pause = false); // or addUpdateListener
 	void removeUpdater(IUpdatable *updater);
 	Screen* getScreen();
 	Event* getEvent();

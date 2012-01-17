@@ -98,7 +98,6 @@ void Aircraft::update()
 		shot_interval = SHOT_INTERVAL;
 	}
 
-	// TODO: shoot special bomb
 	if (bomb_interval > 0) bomb_interval--;
 	else if (bombing && bomb_interval == 0 && bomb > 0)
 	{
@@ -185,10 +184,10 @@ void Aircraft::keyUp(SDLKey key)
 	}
 }
 
-bool Aircraft::collide(int left, int top, int width, int height)
+bool Aircraft::collide(int left, int top, int width, int height, bool item)
 {
 	return
-	    energy > 0 && ghost_time == 0 &&
+	    (item || energy > 0 && ghost_time == 0) &&
 	    left + width >= this->left &&
 	    top + height >= this->top &&
 	    left <= this->left + this->width &&
@@ -217,4 +216,34 @@ void Aircraft::explode()
 
 	hud->setLifes(energy);
 	hud->setContinues(life);
+}
+
+void Aircraft::addLife()
+{
+	energy++;
+	if (energy > AIRCRAFT_LIFES) energy = AIRCRAFT_LIFES;
+	else application->getAudio()->playSound(SND_ITEM);
+	hud->setLifes(energy);
+}
+
+void Aircraft::addBomb()
+{
+	bomb++;
+	if (bomb > AIRCRAFT_BOMBS) bomb = AIRCRAFT_BOMBS;
+	else application->getAudio()->playSound(SND_ITEM);
+	hud->setBombs(bomb);
+}
+
+int Aircraft::bestGift()
+{
+	int max = 0;
+
+	if (energy < AIRCRAFT_LIFES) max++;
+	if (bomb < AIRCRAFT_BOMBS) max++;
+
+	if (max == 0) return 0;
+
+	if (max == 1) return (energy < AIRCRAFT_LIFES) ? 1 : 2;
+
+	return rand() % 2 + 1;
 }

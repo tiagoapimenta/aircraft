@@ -4,9 +4,9 @@ background
 	image 2 5
 end
 enemies
-	# enemy <name> <image> <shot> <life> <speed>
-	enemy raptor 1 2 1 2
-	enemy hornet 2 3 2 1
+	# enemy <name> <image> <shot> <damage> <life> <speed>
+	enemy raptor 1 2 1 1 2
+	enemy hornet 2 3 1 2 1
 	# boss <name> <image> <shield life> <life>
 	boss mothership 1 20 50
 		shots...

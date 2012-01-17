@@ -29,7 +29,6 @@ public:
 protected:
 private:
 	SDL_Surface *screen;
-	//TTF_Font *font;
 	std::set<IDrawable*> drawers[MAX_LAYERS];
 
 	void clear();

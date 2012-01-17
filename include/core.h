@@ -1,8 +1,10 @@
 #ifndef CORE_H
 #define CORE_H
 
-#include <string>
 #include <cmath>
+#include <ctime>
+#include <cstdlib>
+#include <string>
 #include <set>
 #include <map>
 #include <vector>
@@ -13,6 +15,10 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 #include <SDL/SDL_mixer.h>
+
+#ifndef PI
+#define PI 3.1415926535897932384626433832795
+#endif
 
 #include "interfaces.h" // It must comes first, I don't know wky it doesn't works if it isn't, even with "class Name;" prototype.
 
@@ -28,6 +34,7 @@
 #include "enemy.h"
 #include "shot.h"
 #include "explosion.h"
-// TODO: item, boss
+#include "item.h"
+// TODO: boss
 
 #endif

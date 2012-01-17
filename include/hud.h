@@ -32,11 +32,12 @@ public:
 	void setLifes(int lifes);
 	void setContinues(int continues);
 	void setBombs(int bombs);
+
 protected:
 private:
 	Application *application;
 	Screen *screen;
-	Event* event;
+	Event *event;
 	Font *font;
 	Image *img_life;
 	Image *img_bomb;

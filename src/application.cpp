@@ -6,6 +6,8 @@ Application::Application()
 	event = new Event();
 	audio = new Audio();
 	world = NULL;
+
+	srand(time(NULL));
 }
 
 Application::~Application()
@@ -41,7 +43,23 @@ int Application::gameLoop()
 		moves.push_back(move);
 		move.move_y = 280;
 		moves.push_back(move);
-		new Enemy(this, 1, 1, 1, 1, 15, -50, moves);
+		new Enemy(this, 1, 2, 1, 1, 1, 15, -50, moves);
+		moves.clear();
+		move.move_x = 160;
+		move.move_y = 140;
+		moves.push_back(move);
+		move.shot = true;
+		moves.push_back(move);
+		move.shot = false;
+		move.move_x = 15;
+		move.move_y = 280;
+		moves.push_back(move);
+		new Enemy(this, 1, 2, 1, 1, 1, 160, -700, moves);
+		moves.clear();
+		move.move_x = 305;
+		move.move_y = 280;
+		moves.push_back(move);
+		new Enemy(this, 1, 2, 1, 1, 1, 305, -1000, moves);
 	}
 
 	startCounter();

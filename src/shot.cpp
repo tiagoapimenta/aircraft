@@ -6,6 +6,9 @@ Shot::Shot(Application *application, int type, bool animation, int left, int top
 {
 	this->application = application;
 	screen = application->getScreen();
+	World *world = application->getWorld();
+	aircraft = world->getAircraft();
+
 	std::string preffix = IMG_SHOT_PREFIX;
 
 	if (type < 0)
@@ -88,7 +91,12 @@ void Shot::update()
 
 	if (enemy)
 	{
-		// TODO: check hero collision
+		if (aircraft->collide(left, top, width, height))
+		{
+			aircraft->damage(damage);
+			explode();
+			return;
+		}
 	}
 	else
 	{
@@ -116,6 +124,5 @@ void Shot::draw()
 void Shot::explode()
 {
 	if (bomb) new Explosion(application, BOMB_EXPLOSION, BOMB_DELAY, damage / 2, left - width / 2, top - height / 2);
-	//else new Explosion(application, SHOT_EXPLOSION, SHOT_DELAY, 0, left - width / 2, top - height / 2);
 	delete this;
 }

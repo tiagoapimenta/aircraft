@@ -2,7 +2,7 @@
 
 std::set<Enemy*> Enemy::enemies;
 
-Enemy::Enemy(Application *application, int type, int shot, int life, int speed, int left, int top, std::vector<EnemyMove> moves)
+Enemy::Enemy(Application *application, int type, int shot, int damage, int life, int speed, int left, int top, std::vector<EnemyMove> moves)
 {
 	this->application = application;
 	screen = application->getScreen();
@@ -18,6 +18,7 @@ Enemy::Enemy(Application *application, int type, int shot, int life, int speed, 
 	height = image->getHeight();
 
 	this->shot = shot;
+	this->shot_damage = damage;
 	this->life = life;
 	this->speed = speed;
 	this->left = last_left = left - width / 2;
@@ -77,7 +78,7 @@ void Enemy::update()
 	bool done = false;
 	if (move.shot)
 	{
-		// TODO: do shot
+		new Shot(application, shot, false, left + width / 2, top + height, 0, ENEMY_SHOT_SPEED, shot_damage, true);
 		done = true;
 		// TODO: Should it skip the movement?
 	}
@@ -151,5 +152,13 @@ void Enemy::damage(int damage)
 void Enemy::explode()
 {
 	new Explosion(application, SHOT_EXPLOSION, SHOT_DELAY, 0, left + width / 2, top + height / 2);
+
+	if (rand() % ENEMY_DROP == 0)
+	{
+		int type = aircraft->bestGift();
+
+		if (type != 0) new Item(application, type, left + width / 2, top + height / 2);
+	}
+
 	delete this;
 }

@@ -11,6 +11,8 @@
 #define ENEMY_EXPLOSION 10
 #define ENEMY_LAYER 1
 #define ENEMY_POINTS 10
+#define ENEMY_DROP 4
+#define ENEMY_SHOT_SPEED 5
 
 struct EnemyMove
 {
@@ -22,7 +24,7 @@ struct EnemyMove
 class Enemy : public IDrawable, public IUpdatable
 {
 public:
-	Enemy(Application *application, int type, int shot, int life, int speed, int left, int top, std::vector<EnemyMove> moves);
+	Enemy(Application *application, int type, int shot, int damage, int life, int speed, int left, int top, std::vector<EnemyMove> moves);
 	~Enemy();
 
 	static int count();
@@ -32,7 +34,7 @@ public:
 	void update();
 	void draw();
 
-	//void shoot();
+	// TODO: void shoot();
 	bool collide(int left, int top, int width, int height);
 	void damage(int damage);
 	void explode();
@@ -47,6 +49,7 @@ private:
 	HUD *hud;
 	Image *image;
 	int shot;
+	int shot_damage;
 	int life;
 	int speed;
 	int left;

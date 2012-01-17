@@ -27,9 +27,10 @@ World::~World()
 	audio->stopMusic();
 
 	Shot::deleteAll();
+	Item::deleteAll();
 	Enemy::deleteAll();
 	Explosion::deleteAll();
-	//Boss::deleteAll();
+	// TODO: Boss::deleteAll();
 
 	for (std::vector<Background>::iterator it = backgrounds.begin() ; it != backgrounds.end(); it++ )
 	{

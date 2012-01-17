@@ -13,7 +13,7 @@ OUTPUT=${OUTPUT_DIR}/aircraft.exe
 OBJ_DIR=.obj/win
 SRC_DIR=src
 
-OBJS=${OBJ_DIR}/aircraft.o ${OBJ_DIR}/application.o ${OBJ_DIR}/audio.o ${OBJ_DIR}/enemy.o ${OBJ_DIR}/event.o ${OBJ_DIR}/explosion.o ${OBJ_DIR}/font.o ${OBJ_DIR}/hud.o ${OBJ_DIR}/image.o ${OBJ_DIR}/main.o ${OBJ_DIR}/screen.o ${OBJ_DIR}/shot.o ${OBJ_DIR}/world.o
+OBJS=${OBJ_DIR}/aircraft.o ${OBJ_DIR}/application.o ${OBJ_DIR}/audio.o ${OBJ_DIR}/enemy.o ${OBJ_DIR}/event.o ${OBJ_DIR}/explosion.o ${OBJ_DIR}/font.o ${OBJ_DIR}/hud.o ${OBJ_DIR}/image.o ${OBJ_DIR}/item.o ${OBJ_DIR}/main.o ${OBJ_DIR}/screen.o ${OBJ_DIR}/shot.o ${OBJ_DIR}/world.o
 
 all: ${OUTPUT}
 	cp ${CROSS_RUNTIMES} ${OUTPUT_DIR}
@@ -52,6 +52,9 @@ ${OBJ_DIR}/hud.o: ${SRC_DIR}/hud.cpp
 	${CXX} -c ${CFLAGS} $? -o $@
 
 ${OBJ_DIR}/image.o: ${SRC_DIR}/image.cpp
+	${CXX} -c ${CFLAGS} $? -o $@
+
+${OBJ_DIR}/item.o: ${SRC_DIR}/item.cpp
 	${CXX} -c ${CFLAGS} $? -o $@
 
 ${OBJ_DIR}/main.o: ${SRC_DIR}/main.cpp

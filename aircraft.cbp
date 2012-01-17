@@ -38,6 +38,7 @@
 		<Unit filename="include/hud.h" />
 		<Unit filename="include/image.h" />
 		<Unit filename="include/interfaces.h" />
+		<Unit filename="include/item.h" />
 		<Unit filename="include/main.h" />
 		<Unit filename="include/screen.h" />
 		<Unit filename="include/shot.h" />
@@ -51,6 +52,7 @@
 		<Unit filename="src/font.cpp" />
 		<Unit filename="src/hud.cpp" />
 		<Unit filename="src/image.cpp" />
+		<Unit filename="src/item.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/screen.cpp" />
 		<Unit filename="src/shot.cpp" />

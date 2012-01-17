@@ -10,6 +10,8 @@
 #define IMG_FIRE1 "media/images/fire1.png"
 #define IMG_FIRE2 "media/images/fire2.png"
 
+#define SND_ITEM "media/audio/item.ogg"
+
 #define AIRCRAFT_SPEED 4
 #define AIRCRAFT_LIFES 5
 #define AIRCRAFT_CONTINUES 3
@@ -43,16 +45,19 @@ public:
 	void keyDown(SDLKey key);
 	void keyUp(SDLKey key);
 
-	bool collide(int left, int top, int width, int height);
+	bool collide(int left, int top, int width, int height, bool item = false);
 	void damage(int damage);
 	void explode();
+	void addLife();
+	void addBomb();
+	int bestGift();
 
 protected:
 private:
-	Application* application;
-	Screen* screen;
-	Event* event;
-	HUD* hud;
+	Application *application;
+	Screen *screen;
+	Event *event;
+	HUD *hud;
 	Image *aircraft, *aircraft_left, *aircraft_right, *current_aircraft, *used_aircraft;
 	Image *fire1, *fire2, *current_fire;
 	int width;
