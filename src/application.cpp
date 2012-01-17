@@ -24,7 +24,25 @@ int Application::gameLoop()
 {
 	world = new World(this);
 
-	new Enemy(this, 1, 1, 15, -5, 1);
+	{
+		std::vector<EnemyMove> moves;
+		EnemyMove move;
+		move.shot = false;
+		move.move_x = 15;
+		move.move_y = 240;
+		moves.push_back(move);
+		move.move_x = 160;
+		move.move_y = 40;
+		moves.push_back(move);
+		move.move_y = 240;
+		moves.push_back(move);
+		move.move_x = 305;
+		move.move_y = 40;
+		moves.push_back(move);
+		move.move_y = 280;
+		moves.push_back(move);
+		new Enemy(this, 1, 1, 1, 1, 15, -50, moves);
+	}
 
 	startCounter();
 

@@ -35,6 +35,8 @@ public:
 	void update();
 	void draw();
 
+	void nextStep();
+
 protected:
 private:
 	Application *application;

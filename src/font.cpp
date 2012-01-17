@@ -36,7 +36,7 @@ void Font::clearCache()
 		if (it->second.counter == 0)
 		{
 			TTF_CloseFont(it->second.font);
-			fonts.erase(it);
+			fonts.erase(it); // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
 		}
 	}
 }

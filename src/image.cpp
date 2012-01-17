@@ -53,7 +53,7 @@ void Image::clearCache()
 		if (it->second.counter == 0)
 		{
 			SDL_FreeSurface(it->second.image);
-			images.erase(it);
+			images.erase(it); // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
 		}
 	}
 }

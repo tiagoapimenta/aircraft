@@ -34,7 +34,7 @@ World::~World()
 	for (std::vector<Background>::iterator it = backgrounds.begin() ; it != backgrounds.end(); it++ )
 	{
 		delete it->image;
-		backgrounds.erase(it);
+		backgrounds.erase(it); // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
 	}
 
 	delete aircraft;
@@ -67,6 +67,11 @@ void World::draw()
 		screen->blitImage(0, it->position - it->height, it->image);
 		if (it->position < SCREEN_HEIGHT) screen->blitImage(0, it->position, it->image);
 	}
+}
+
+void World::nextStep()
+{
+	// TODO: next movement
 }
 
 void World::addBackground(int id, int speed)

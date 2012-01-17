@@ -3,20 +3,29 @@
 
 #include "core.h"
 
+#define sign(n) ((n > 0) - (n < 0))
+
 #define IMG_ENEMY_PREFIX "media/images/enemy"
 #define IMG_ENEMY_SUFFIX ".png"
 
-#define ENEMY_SPEED 1
 #define ENEMY_EXPLOSION 10
 #define ENEMY_LAYER 1
 #define ENEMY_POINTS 10
 
+struct EnemyMove
+{
+	int move_x;
+	int move_y;
+	bool shot;
+};
+
 class Enemy : public IDrawable, public IUpdatable
 {
 public:
-	Enemy(Application *application, int type, int life, int left, int top, int move);
+	Enemy(Application *application, int type, int shot, int life, int speed, int left, int top, std::vector<EnemyMove> moves);
 	~Enemy();
 
+	static int count();
 	static void deleteAll();
 	static bool checkCollisionDamage(int damage, int left, int top, int width, int height);
 
@@ -33,15 +42,20 @@ private:
 
 	Application *application;
 	Screen *screen;
+	World *world;
 	Aircraft *aircraft;
 	HUD *hud;
 	Image *image;
+	int shot;
+	int life;
+	int speed;
 	int left;
 	int top;
-	int move;
 	int width;
 	int height;
-	int life;
+	int last_top;
+	int last_left;
+	std::vector<EnemyMove> moves;
 };
 
 #endif // ENEMY_H

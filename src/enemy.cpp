@@ -2,11 +2,11 @@
 
 std::set<Enemy*> Enemy::enemies;
 
-Enemy::Enemy(Application *application, int type, int life, int left, int top, int move) // moves sequence
+Enemy::Enemy(Application *application, int type, int shot, int life, int speed, int left, int top, std::vector<EnemyMove> moves)
 {
 	this->application = application;
 	screen = application->getScreen();
-	World *world = application->getWorld();
+	world = application->getWorld();
 	aircraft = world->getAircraft();
 	hud = world->getHUD();
 
@@ -17,10 +17,12 @@ Enemy::Enemy(Application *application, int type, int life, int left, int top, in
 	width = image->getWidth();
 	height = image->getHeight();
 
+	this->shot = shot;
 	this->life = life;
-	this->left = left + width / 2;
-	this->top = top - height;
-	this->move = move;
+	this->speed = speed;
+	this->left = last_left = left - width / 2;
+	this->top = last_top = top - height;
+	this->moves = moves;
 
 	enemies.insert(this);
 
@@ -36,6 +38,12 @@ Enemy::~Enemy()
 	delete image;
 
 	enemies.erase(this);
+	if (enemies.empty()) world->nextStep();
+}
+
+int Enemy::count()
+{
+	return enemies.size();
 }
 
 void Enemy::deleteAll()
@@ -64,17 +72,54 @@ bool Enemy::checkCollisionDamage(int damage, int left, int top, int width, int h
 
 void Enemy::update()
 {
-	top += move * ENEMY_SPEED;
+	EnemyMove move = moves.front();
+
+	bool done = false;
+	if (move.shot)
+	{
+		// TODO: do shot
+		done = true;
+		// TODO: Should it skip the movement?
+	}
+	else
+	{
+		int target_x = move.move_x - width / 2;
+		int target_y = move.move_y - height;
+		int move_x = sign(target_x - left);
+		int move_y = sign(target_y - top);
+
+		if (abs(move_x) > abs(move_y))
+		{
+			move_x *= speed;
+			left += move_x;
+			top = last_top + (target_y - last_top) * (left - last_left) / (target_x - last_left);
+			if (move_x > 0 && left >= target_x || move_x < 0 && left <= target_x) done = true;
+		}
+		else
+		{
+			move_y *=speed;
+			top += move_y;
+			left = last_left + (target_x - last_left) * (top - last_top) / (target_y - last_top);
+			if (move_y > 0 && top >= target_y || move_y < 0 && top <= target_y) done = true;
+		}
+	}
+
+	if (done)
+	{
+		moves.erase(moves.begin());
+		last_left = left;
+		last_top = top;
+	}
+
+	if (moves.empty()) {
+		delete this;
+	}
 
 	if (aircraft->collide(left, top, width, height))
 	{
 		aircraft->damage(life * ENEMY_EXPLOSION);
 		life = 0;
 		explode();
-	}
-
-	if (top > SCREEN_HEIGHT) { // do moves
-		delete this;
 	}
 }
 

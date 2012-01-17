@@ -5,7 +5,7 @@ CROSS_LIB=${CROSS_DIR}/lib
 CROSS_INCLUDE=${CROSS_DIR}/include
 CROSS_RUNTIMES=${CROSS_DIR}/runtime/*.dll
 
-CFLAGS=-I${CROSS_INCLUDE} -Iinclude
+CFLAGS=-I${CROSS_INCLUDE} -Iinclude -O3
 LIBS=-lmingw32 -lSDLmain -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer -L${CROSS_LIB}
 OUTPUT_DIR=bin/win
 OUTPUT=${OUTPUT_DIR}/aircraft.exe

@@ -2,6 +2,7 @@
 #define CORE_H
 
 #include <string>
+#include <cmath>
 #include <set>
 #include <map>
 #include <vector>
