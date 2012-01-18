@@ -199,7 +199,7 @@ void Aircraft::keyUp (SDLKey key)
 bool Aircraft::collide (int left, int top, int width, int height, bool item)
 {
 	return
-		(item || energy > 0 && ghost_time == 0) && // TODO: do something to supress warnning
+		(item || (energy > 0 && ghost_time == 0)) &&
 		left + width >= this->left &&
 		top + height >= this->top &&
 		left <= this->left + this->width &&

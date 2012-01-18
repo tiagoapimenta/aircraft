@@ -106,7 +106,12 @@ void World::nextStep()
 				if (it->instruction.compare("enemy") != 0) throw "Invalid instruction";
 
 				std::vector<int> properties;
-				for (int i = 1; i < 7; i++)
+
+				properties.push_back(atoi(it->arguments.at(1).c_str()));
+				properties.push_back(atoi(it->arguments.at(2).c_str()));
+				properties.push_back(it->arguments.at(3).compare("t") == 0 ? 1 : 0);
+
+				for (int i = 4; i < 7; i++)
 				{
 					properties.push_back(atoi(it->arguments.at(i).c_str()));
 				}

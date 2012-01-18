@@ -3,7 +3,7 @@
 
 #include "core.h"
 
-#define FRAMES_PER_SECOND 40
+#define FRAMES_PER_SECOND 25
 #define TIME_PER_FRAME (1000 / FRAMES_PER_SECOND)
 #define TIME_PER_FRAME_OFF (TIME_PER_FRAME / 4) // 25% of time_per_frame is margin of error
 

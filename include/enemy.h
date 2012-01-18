@@ -34,7 +34,6 @@ public:
 	void update();
 	void draw();
 
-	// TODO: void shoot();
 	bool collide (int left, int top, int width, int height);
 	void damage (int damage);
 	void explode();
@@ -60,6 +59,8 @@ private:
 	int last_top;
 	int last_left;
 	std::vector<EnemyMove> moves;
+
+	void shoot(int count);
 };
 
 #endif // ENEMY_H

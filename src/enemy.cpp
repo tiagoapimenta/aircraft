@@ -81,7 +81,7 @@ void Enemy::update()
 
 	if (move.shot)
 	{
-		new Shot (application, shot, animated_shot, left + width / 2, top + height, 0, ENEMY_SHOT_SPEED, shot_damage, true);
+		shoot(1);
 		done = true;
 		// TODO: Should it skip the movement?
 	}
@@ -98,7 +98,7 @@ void Enemy::update()
 			left += move_x;
 			top = last_top + (target_y - last_top) * (left - last_left) / (target_x - last_left);
 
-			if (move_x > 0 && left >= target_x || move_x < 0 && left <= target_x) done = true; // TODO: do something to supress warnning
+			if ((move_x > 0 && left >= target_x) || (move_x < 0 && left <= target_x)) done = true;
 		}
 		else
 		{
@@ -106,7 +106,7 @@ void Enemy::update()
 			top += move_y;
 			left = last_left + (target_x - last_left) * (top - last_top) / (target_y - last_top);
 
-			if (move_y > 0 && top >= target_y || move_y < 0 && top <= target_y) done = true; // TODO: do something to supress warnning
+			if ((move_y > 0 && top >= target_y) || (move_y < 0 && top <= target_y)) done = true;
 		}
 	}
 
@@ -166,4 +166,10 @@ void Enemy::explode()
 	}
 
 	delete this;
+}
+
+void Enemy::shoot(int count)
+{
+	// TODO: multi-shot
+	new Shot (application, shot, animated_shot, left + width / 2, top + height, 0, ENEMY_SHOT_SPEED, shot_damage, true);
 }

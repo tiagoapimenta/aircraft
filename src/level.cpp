@@ -192,7 +192,11 @@ int Level::validateLevel(Instruction *parent, Instruction &instruction, int line
 		level = 1;
 	}
 
-	// validate instruction
+	std::string key = "";
+
+	if (parent != NULL) key = parent->instruction;
+
+	if (instruction_set.count(key) == 0 || instruction_set.find(key)->second.count(instruction.instruction) == 0) throwError(line);
 
 	validateArguments(instruction, line);
 
@@ -201,5 +205,55 @@ int Level::validateLevel(Instruction *parent, Instruction &instruction, int line
 
 void Level::validateArguments(Instruction &instruction, int line)
 {
-	// TODO: use instruction_arguments
+	if (instruction_arguments.count(instruction.instruction) > 0)
+	{
+		std::vector<int> allowed_arguments = instruction_arguments.find(instruction.instruction)->second;
+
+		int max = allowed_arguments.size();
+		int size = instruction.arguments.size();
+		int min = 0;
+		bool optional = false;
+		for (int i = 0; i < max; i++)
+		{
+			if (allowed_arguments.at(i) == ARGUMENT_TYPE_OPTIONAL_NUMBER) optional = true;
+			else
+			{
+				if (optional) throwError(line);
+				min++;
+			}
+		}
+
+		if (size > max || size < min) throwError(line);
+
+		for (int i = 0; i < size; i++)
+		{
+			std::string value = instruction.arguments.at(i);
+			switch (allowed_arguments.at(i))
+			{
+				case ARGUMENT_TYPE_BOOLEAN:
+				{
+					if (value.compare("f") != 0 && value.compare("t") != 0) throwError(line);
+					break;
+				}
+				case ARGUMENT_TYPE_NUMBER:
+				case ARGUMENT_TYPE_OPTIONAL_NUMBER:
+				{
+					size_t pos = 0;
+					if (value.at(0) == SIGN) pos++;
+					if (value.find_first_not_of(NUMBERS, pos) != std::string::npos) throwError(line);
+					break;
+				}
+				case ARGUMENT_TYPE_NAME:
+				{
+					// TODO: maybe not begins with number, or not contain symbols...
+					break;
+				}
+				default: throwError(line);
+			}
+		}
+	}
+	else
+	{
+		if (instruction.arguments.size() != 0) throwError(line);
+	}
 }

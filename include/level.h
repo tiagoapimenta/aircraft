@@ -6,6 +6,8 @@
 #define COMMENT "#"
 #define SPACES " \t"
 #define BLANKS " \t\r\n"
+#define SIGN '-'
+#define NUMBERS "0123456789"
 #define END_BLOCK "end"
 
 #define ARGUMENT_TYPE_BOOLEAN          0
