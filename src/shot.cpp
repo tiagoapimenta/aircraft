@@ -75,10 +75,18 @@ Shot::~Shot()
 
 void Shot::deleteAll()
 {
+	std::set<Shot*> trash;
+
 	for (std::set<Shot*>::iterator it = shots.begin() ; it != shots.end(); it++)
 	{
-		delete *it; // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
+		trash.insert(*it);
 	}
+
+	for (std::set<Shot*>::iterator it = trash.begin() ; it != trash.end(); it++)
+	{
+		delete *it;
+	}
+	trash.clear();
 }
 
 void Shot::update()

@@ -38,10 +38,18 @@ Item::~Item()
 
 void Item::deleteAll()
 {
+	std::set<Item*> trash;
+
 	for (std::set<Item*>::iterator it = itens.begin() ; it != itens.end(); it++)
 	{
-		delete *it; // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
+		trash.insert(*it);
 	}
+
+	for (std::set<Item*>::iterator it = trash.begin() ; it != trash.end(); it++)
+	{
+		delete *it;
+	}
+	trash.clear();
 }
 
 void Item::update()

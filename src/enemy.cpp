@@ -51,10 +51,18 @@ int Enemy::count()
 
 void Enemy::deleteAll()
 {
+	std::set<Enemy*> trash;
+
 	for (std::set<Enemy*>::iterator it = enemies.begin() ; it != enemies.end(); it++)
 	{
-		delete *it; // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
+		trash.insert(*it);
 	}
+
+	for (std::set<Enemy*>::iterator it = trash.begin() ; it != trash.end(); it++)
+	{
+		delete *it;
+	}
+	trash.clear();
 }
 
 bool Enemy::checkCollisionDamage (int damage, int left, int top, int width, int height)

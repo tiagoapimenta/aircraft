@@ -40,10 +40,18 @@ Explosion::~Explosion()
 
 void Explosion::deleteAll()
 {
+	std::set<Explosion*> trash;
+
 	for (std::set<Explosion*>::iterator it = explosions.begin() ; it != explosions.end(); it++)
 	{
-		delete *it; // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
+		trash.insert(*it);
 	}
+
+	for (std::set<Explosion*>::iterator it = trash.begin() ; it != trash.end(); it++)
+	{
+		delete *it;
+	}
+	trash.clear();
 }
 
 void Explosion::update()
