@@ -95,5 +95,5 @@ void Audio::playSound (std::string filename)
 		sounds.insert (make_pair (filename, sound));
 	}
 
-	if (Mix_PlayChannel (-1, sound, 0) == -1) throw "Couldn't play sound.";
+	Mix_PlayChannel (-1, sound, 0); // TODO: fix it on play explosion several times: if (Mix_PlayChannel (-1, sound, 0) == -1) throw "Couldn't play sound.";
 }

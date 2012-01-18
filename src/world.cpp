@@ -116,12 +116,13 @@ void World::nextStep()
 		else if (instruction.instruction.compare("music") == 0)
 		{
 			std::string prefix;
-			if (instruction.arguments.at(0).compare("level")) prefix = SND_MUSIC_LEVEL_PREFIX;
-			else if (instruction.arguments.at(0).compare("boss")) prefix = SND_MUSIC_BOSS_PREFIX;
+			if (instruction.arguments.at(0).compare("level") == 0) prefix = SND_MUSIC_LEVEL_PREFIX;
+			else if (instruction.arguments.at(0).compare("boss") == 0) prefix = SND_MUSIC_BOSS_PREFIX;
 			else throw "Invalid instruction";
 
 			std::ostringstream filename;
 			filename << prefix << atoi(instruction.arguments.at(1).c_str()) << SND_MUSIC_SUFFIX;
+
 			audio->playMusic (filename.str());
 		}
 		else if (instruction.instruction.compare("delay") == 0)
@@ -172,7 +173,10 @@ void World::nextStep()
 		}
 	}
 
-	// TODO: win if end
+	if (!done)
+	{
+		// TODO: you win
+	}
 }
 
 void World::addBackground (int id, int speed)
@@ -195,6 +199,6 @@ void World::clearBackground()
 	for (std::vector<Background>::iterator it = backgrounds.begin() ; it != backgrounds.end(); it++)
 	{
 		delete it->image;
-		backgrounds.erase (it); // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
 	}
+	backgrounds.clear();
 }

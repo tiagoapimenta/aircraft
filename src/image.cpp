@@ -49,14 +49,22 @@ Image::~Image()
 
 void Image::clearCache()
 {
+	std::set<std::string> trash;
+
 	for (std::map<std::string, ImageCounter>::iterator it = images.begin(); it != images.end(); it++)
 	{
 		if (it->second.counter == 0)
 		{
 			SDL_FreeSurface (it->second.image);
-			images.erase (it); // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
+			trash.insert(it->first);
 		}
 	}
+
+	for (std::set<std::string>::iterator it = trash.begin(); it != trash.end(); it++)
+	{
+		images.erase(*it);
+	}
+	trash.clear();
 }
 
 SDL_Surface *Image::getSurface()

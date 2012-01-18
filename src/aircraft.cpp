@@ -223,10 +223,15 @@ void Aircraft::explode()
 	ghost_time = GHOST_TIME;
 
 	energy = AIRCRAFT_LIFES;
+	bomb = AIRCRAFT_BOMBS;
 	life--;
-	// TODO: game over if life == 0
+	if (life == 0)
+	{
+		throw "Game Over"; // TODO: game over
+	}
 
 	hud->setLifes (energy);
+	hud->setBombs (bomb);
 	hud->setContinues (life);
 }
 

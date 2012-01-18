@@ -34,14 +34,22 @@ Font::~Font()
 
 void Font::clearCache()
 {
+	std::set<int> trash;
+
 	for (std::map<int, FontCounter>::iterator it = fonts.begin(); it != fonts.end(); it++)
 	{
 		if (it->second.counter == 0)
 		{
 			TTF_CloseFont (it->second.font);
-			fonts.erase (it); // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
+			trash.insert(it->first);
 		}
 	}
+
+	for (std::set<int>::iterator it = trash.begin(); it != trash.end(); it++)
+	{
+		fonts.erase(*it);
+	}
+	trash.clear();
 }
 
 Image* Font::createText (std::string text)

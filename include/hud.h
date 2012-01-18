@@ -11,18 +11,21 @@
 #define HUD_MARGIN_BOTTOM 5
 #define HUD_MARGIN_SPAN 2
 
+#define HUD_POINTS_STEP 1
+
 #define IMG_LIFE "media/images/life.png"
 #define IMG_BOMB "media/images/special.png"
 #define IMG_CONTINUE "media/images/continue.png"
 
 class Font;
 
-class HUD : public IKeyEventHandleable, public IDrawable
+class HUD : public IKeyEventHandleable, public IUpdatable, public IDrawable
 {
 public:
 	HUD (Application *application);
 	~HUD();
 
+	void update();
 	void draw();
 	void keyDown (SDLKey key);
 	void keyUp (SDLKey key);
@@ -48,6 +51,7 @@ private:
 	int bombs;
 	int continues;
 	int points;
+	int animated_points;
 	int img_pause_width;
 	int img_pause_height;
 	int img_life_width;

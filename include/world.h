@@ -7,7 +7,7 @@
 #define IMG_BACKGROUND_SUFFIX ".png"
 
 #define SND_MUSIC_LEVEL_PREFIX "media/audio/level"
-#define SND_MUSIC_BOSS_PREFIX "media/audio/level"
+#define SND_MUSIC_BOSS_PREFIX "media/audio/boss"
 #define SND_MUSIC_SUFFIX ".mid"
 
 #define TXT_LEVEL_SCRIPT_PREFIX "media/levels/level"

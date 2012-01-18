@@ -29,16 +29,18 @@ HUD::HUD (Application *application)
 	lifes = AIRCRAFT_LIFES;
 	continues = AIRCRAFT_CONTINUES;
 	bombs = AIRCRAFT_BOMBS;
-	points = 0;
+	points = animated_points = 0;
 	img_points = font->createText ("0");
 
 	event->addKeyEvent (this);
+	application->addUpdater (this);
 	screen->addDrawer (HUD_LAYER, this);
 }
 
 HUD::~HUD()
 {
 	event->removeKeyEvent (this);
+	application->removeUpdater (this);
 	screen->removeDrawer (HUD_LAYER, this);
 
 	delete font;
@@ -47,6 +49,21 @@ HUD::~HUD()
 	delete img_bomb;
 	delete img_continue;
 	delete img_points;
+}
+
+void HUD::update()
+{
+	if (animated_points < points)
+	{
+		animated_points += HUD_POINTS_STEP;
+		if (animated_points > points) animated_points = points;
+
+		std::ostringstream sstream;
+		sstream << animated_points;
+		delete img_points;
+
+		img_points = font->createText (sstream.str());
+	}
 }
 
 void HUD::draw()
@@ -89,11 +106,6 @@ void HUD::keyUp (SDLKey key)
 void HUD::computePoints (int points)
 {
 	this->points += points;
-
-	std::ostringstream sstream;
-	sstream << points;
-	delete img_points;
-	img_points = font->createText (sstream.str());
 }
 
 void HUD::setLifes (int lifes)
