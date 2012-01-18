@@ -7,7 +7,7 @@ Application::Application()
 	audio = new Audio();
 	world = NULL;
 
-	srand(time(NULL));
+	srand (time (NULL));
 }
 
 Application::~Application()
@@ -24,43 +24,7 @@ Application::~Application()
 
 int Application::gameLoop()
 {
-	world = new World(this);
-
-	{
-		std::vector<EnemyMove> moves;
-		EnemyMove move;
-		move.shot = false;
-		move.move_x = 15;
-		move.move_y = 240;
-		moves.push_back(move);
-		move.move_x = 160;
-		move.move_y = 40;
-		moves.push_back(move);
-		move.move_y = 240;
-		moves.push_back(move);
-		move.move_x = 305;
-		move.move_y = 40;
-		moves.push_back(move);
-		move.move_y = 280;
-		moves.push_back(move);
-		new Enemy(this, 1, 2, 1, 1, 1, 15, -50, moves);
-		moves.clear();
-		move.move_x = 160;
-		move.move_y = 140;
-		moves.push_back(move);
-		move.shot = true;
-		moves.push_back(move);
-		move.shot = false;
-		move.move_x = 15;
-		move.move_y = 280;
-		moves.push_back(move);
-		new Enemy(this, 1, 2, 1, 1, 1, 160, -700, moves);
-		moves.clear();
-		move.move_x = 305;
-		move.move_y = 280;
-		moves.push_back(move);
-		new Enemy(this, 1, 2, 1, 1, 1, 305, -1000, moves);
-	}
+	world = new World (this, 1);
 
 	startCounter();
 
@@ -81,22 +45,22 @@ int Application::gameLoop()
 
 void Application::update()
 {
-	for (std::map<IUpdatable*, bool>::iterator it = updaters.begin() ; it != updaters.end(); it++ )
+	for (std::map<IUpdatable*, bool>::iterator it = updaters.begin() ; it != updaters.end(); it++)
 	{
 		if (!paused || it->second) it->first->update();
 	}
 }
 
-void Application::addUpdater(IUpdatable *updater, bool continue_on_pause)
+void Application::addUpdater (IUpdatable *updater, bool continue_on_pause)
 {
-	updaters.insert(std::make_pair(updater, continue_on_pause)); // TODO: maybe updaters[updater] = continue_on_pause;
+	updaters.insert (std::make_pair (updater, continue_on_pause)); // TODO: maybe updaters[updater] = continue_on_pause;
 }
 
-void Application::removeUpdater(IUpdatable *updater)
+void Application::removeUpdater (IUpdatable *updater)
 {
-	if (updaters.count(updater) > 0)
+	if (updaters.count (updater) > 0)
 	{
-		updaters.erase(updater);
+		updaters.erase (updater);
 	}
 }
 
@@ -125,12 +89,14 @@ bool Application::isPaused()
 	return paused;
 }
 
-void Application::pause(bool pause)
+void Application::pause (bool pause)
 {
 	paused = pause;
+
 	if (paused)
 	{
 		playing_paused_music = audio->isMusicPlaying();
+
 		if (playing_paused_music) audio->pauseMusic();
 	}
 	else if (playing_paused_music) audio->playMusic();
@@ -145,7 +111,7 @@ void Application::waitFPS()
 {
 	Uint32 elapsed_time = SDL_GetTicks() - timer;
 
-	if (elapsed_time < TIME_PER_FRAME - TIME_PER_FRAME_OFF) SDL_Delay(TIME_PER_FRAME - TIME_PER_FRAME_OFF - elapsed_time);
+	if (elapsed_time < TIME_PER_FRAME - TIME_PER_FRAME_OFF) SDL_Delay (TIME_PER_FRAME - TIME_PER_FRAME_OFF - elapsed_time);
 	else if (elapsed_time > TIME_PER_FRAME) std::cerr << "Overlapped time: " << elapsed_time - TIME_PER_FRAME << std::endl;
 
 	timer += elapsed_time;

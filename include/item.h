@@ -14,7 +14,7 @@
 class Item : public IUpdatable, public IDrawable
 {
 public:
-	Item(Application *application, int type, int left, int top);
+	Item (Application *application, int type, int left, int top);
 	~Item();
 
 	static void deleteAll();

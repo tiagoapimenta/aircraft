@@ -9,13 +9,13 @@ public:
 	Audio();
 	~Audio();
 
-	void playMusic(std::string filename);
+	void playMusic (std::string filename);
 	bool isMusicPaused();
 	bool isMusicPlaying();
 	void playMusic();
 	void pauseMusic();
 	void stopMusic();
-	void playSound(std::string filename);
+	void playSound (std::string filename);
 
 protected:
 private:

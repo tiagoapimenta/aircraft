@@ -2,7 +2,7 @@
 
 std::set<Enemy*> Enemy::enemies;
 
-Enemy::Enemy(Application *application, int type, int shot, int damage, int life, int speed, int left, int top, std::vector<EnemyMove> moves)
+Enemy::Enemy (Application *application, int type, int shot, bool animated_shot, int damage, int life, int speed, int left, int top, std::vector<EnemyMove> moves)
 {
 	this->application = application;
 	screen = application->getScreen();
@@ -12,12 +12,13 @@ Enemy::Enemy(Application *application, int type, int shot, int damage, int life,
 
 	std::ostringstream filename;
 	filename << IMG_ENEMY_PREFIX << type << IMG_ENEMY_SUFFIX;
-	image = new Image(filename.str());
+	image = new Image (filename.str());
 
 	width = image->getWidth();
 	height = image->getHeight();
 
 	this->shot = shot;
+	this->animated_shot = animated_shot;
 	this->shot_damage = damage;
 	this->life = life;
 	this->speed = speed;
@@ -25,20 +26,21 @@ Enemy::Enemy(Application *application, int type, int shot, int damage, int life,
 	this->top = last_top = top - height;
 	this->moves = moves;
 
-	enemies.insert(this);
+	enemies.insert (this);
 
-	application->addUpdater(this);
-	screen->addDrawer(ENEMY_LAYER, this);
+	application->addUpdater (this);
+	screen->addDrawer (ENEMY_LAYER, this);
 }
 
 Enemy::~Enemy()
 {
-	application->removeUpdater(this);
-	screen->removeDrawer(ENEMY_LAYER, this);
+	application->removeUpdater (this);
+	screen->removeDrawer (ENEMY_LAYER, this);
 
 	delete image;
 
-	enemies.erase(this);
+	enemies.erase (this);
+
 	if (enemies.empty()) world->nextStep();
 }
 
@@ -49,21 +51,21 @@ int Enemy::count()
 
 void Enemy::deleteAll()
 {
-	for (std::set<Enemy*>::iterator it = enemies.begin() ; it != enemies.end(); it++ )
+	for (std::set<Enemy*>::iterator it = enemies.begin() ; it != enemies.end(); it++)
 	{
-		delete *it;
+		delete *it; // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
 	}
 }
 
-bool Enemy::checkCollisionDamage(int damage, int left, int top, int width, int height)
+bool Enemy::checkCollisionDamage (int damage, int left, int top, int width, int height)
 {
 	bool collision = false;
 
-	for (std::set<Enemy*>::iterator it = enemies.begin() ; it != enemies.end(); it++ )
+	for (std::set<Enemy*>::iterator it = enemies.begin() ; it != enemies.end(); it++)
 	{
-		if ((*it)->collide(left, top, width, height))
+		if ( (*it)->collide (left, top, width, height))
 		{
-			(*it)->damage(damage);
+			(*it)->damage (damage);
 			collision = true;
 		}
 	}
@@ -76,9 +78,10 @@ void Enemy::update()
 	EnemyMove move = moves.front();
 
 	bool done = false;
+
 	if (move.shot)
 	{
-		new Shot(application, shot, false, left + width / 2, top + height, 0, ENEMY_SHOT_SPEED, shot_damage, true);
+		new Shot (application, shot, animated_shot, left + width / 2, top + height, 0, ENEMY_SHOT_SPEED, shot_damage, true);
 		done = true;
 		// TODO: Should it skip the movement?
 	}
@@ -86,28 +89,30 @@ void Enemy::update()
 	{
 		int target_x = move.move_x - width / 2;
 		int target_y = move.move_y - height;
-		int move_x = sign(target_x - left);
-		int move_y = sign(target_y - top);
+		int move_x = sign (target_x - left);
+		int move_y = sign (target_y - top);
 
-		if (abs(move_x) > abs(move_y))
+		if (abs (move_x) > abs (move_y))
 		{
 			move_x *= speed;
 			left += move_x;
 			top = last_top + (target_y - last_top) * (left - last_left) / (target_x - last_left);
-			if (move_x > 0 && left >= target_x || move_x < 0 && left <= target_x) done = true;
+
+			if (move_x > 0 && left >= target_x || move_x < 0 && left <= target_x) done = true; // TODO: do something to supress warnning
 		}
 		else
 		{
-			move_y *=speed;
+			move_y *= speed;
 			top += move_y;
 			left = last_left + (target_x - last_left) * (top - last_top) / (target_y - last_top);
-			if (move_y > 0 && top >= target_y || move_y < 0 && top <= target_y) done = true;
+
+			if (move_y > 0 && top >= target_y || move_y < 0 && top <= target_y) done = true; // TODO: do something to supress warnning
 		}
 	}
 
 	if (done)
 	{
-		moves.erase(moves.begin());
+		moves.erase (moves.begin());
 		last_left = left;
 		last_top = top;
 	}
@@ -116,9 +121,9 @@ void Enemy::update()
 		delete this;
 	}
 
-	if (aircraft->collide(left, top, width, height))
+	if (aircraft->collide (left, top, width, height))
 	{
-		aircraft->damage(life * ENEMY_EXPLOSION);
+		aircraft->damage (life * ENEMY_EXPLOSION);
 		life = 0;
 		explode();
 	}
@@ -126,38 +131,38 @@ void Enemy::update()
 
 void Enemy::draw()
 {
-	screen->blitImage(left, top, image);
+	screen->blitImage (left, top, image);
 }
 
-bool Enemy::collide(int left, int top, int width, int height)
+bool Enemy::collide (int left, int top, int width, int height)
 {
 	return
-	    life > 0 &&
-	    left + width >= this->left &&
-	    top + height >= this->top &&
-	    left <= this->left + this->width &&
-	    top <= this->top + this->height;
+		life > 0 &&
+		left + width >= this->left &&
+		top + height >= this->top &&
+		left <= this->left + this->width &&
+		top <= this->top + this->height;
 }
 
-void Enemy::damage(int damage)
+void Enemy::damage (int damage)
 {
 	life -= damage;
 
-	if (life < 0) hud->computePoints((damage + life) * ENEMY_POINTS);
-	else hud->computePoints(damage * ENEMY_POINTS);
+	if (life < 0) hud->computePoints ( (damage + life) * ENEMY_POINTS);
+	else hud->computePoints (damage * ENEMY_POINTS);
 
 	if (life <= 0) explode();
 }
 
 void Enemy::explode()
 {
-	new Explosion(application, SHOT_EXPLOSION, SHOT_DELAY, 0, left + width / 2, top + height / 2);
+	new Explosion (application, SHOT_EXPLOSION, SHOT_DELAY, 0, left + width / 2, top + height / 2);
 
 	if (rand() % ENEMY_DROP == 0)
 	{
 		int type = aircraft->bestGift();
 
-		if (type != 0) new Item(application, type, left + width / 2, top + height / 2);
+		if (type != 0) new Item (application, type, left + width / 2, top + height / 2);
 	}
 
 	delete this;

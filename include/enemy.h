@@ -24,19 +24,19 @@ struct EnemyMove
 class Enemy : public IDrawable, public IUpdatable
 {
 public:
-	Enemy(Application *application, int type, int shot, int damage, int life, int speed, int left, int top, std::vector<EnemyMove> moves);
+	Enemy (Application *application, int type, int shot, bool animated_shot, int damage, int life, int speed, int left, int top, std::vector<EnemyMove> moves);
 	~Enemy();
 
 	static int count();
 	static void deleteAll();
-	static bool checkCollisionDamage(int damage, int left, int top, int width, int height);
+	static bool checkCollisionDamage (int damage, int left, int top, int width, int height);
 
 	void update();
 	void draw();
 
 	// TODO: void shoot();
-	bool collide(int left, int top, int width, int height);
-	void damage(int damage);
+	bool collide (int left, int top, int width, int height);
+	void damage (int damage);
 	void explode();
 protected:
 private:
@@ -49,6 +49,7 @@ private:
 	HUD *hud;
 	Image *image;
 	int shot;
+	bool animated_shot;
 	int shot_damage;
 	int life;
 	int speed;

@@ -13,7 +13,7 @@
 class Explosion : public IDrawable, public IUpdatable
 {
 public:
-	Explosion(Application *application, int type, int delay, int damage, int left, int top, bool play_sound = true);
+	Explosion (Application *application, int type, int delay, int damage, int left, int top, bool play_sound = true);
 	~Explosion();
 
 	static void deleteAll();
@@ -29,7 +29,10 @@ private:
 	Screen *screen;
 	int left;
 	int top;
+	int width;
+	int height;
 	int time;
+	int damage;
 
 	Image *image;
 };

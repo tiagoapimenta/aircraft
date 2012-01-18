@@ -4,8 +4,8 @@
 class IKeyEventHandleable
 {
 public:
-	virtual void keyDown(SDLKey key) = 0;
-	virtual void keyUp(SDLKey key) = 0;
+	virtual void keyDown (SDLKey key) = 0;
+	virtual void keyUp (SDLKey key) = 0;
 };
 
 class IUpdatable

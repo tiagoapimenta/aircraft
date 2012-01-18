@@ -12,8 +12,8 @@ struct ImageCounter
 class Image
 {
 public:
-	Image(std::string filename);
-	Image(SDL_Surface *image);
+	Image (std::string filename);
+	Image (SDL_Surface *image);
 	~Image();
 
 	static void clearCache();

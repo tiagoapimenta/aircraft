@@ -2,14 +2,14 @@
 
 std::set<Item*> Item::itens;
 
-Item::Item(Application *application, int type, int left, int top)
+Item::Item (Application *application, int type, int left, int top)
 {
 	this->application = application;
 	screen = application->getScreen();
 	World *world = application->getWorld();
 	aircraft = world->getAircraft();
 
-	image = new Image(type == 1 ? IMG_ITEM_LIFE : IMG_ITEM_SPECIAL);
+	image = new Image (type == 1 ? IMG_ITEM_LIFE : IMG_ITEM_SPECIAL);
 
 	width = image->getWidth();
 	height = image->getHeight();
@@ -20,50 +20,53 @@ Item::Item(Application *application, int type, int left, int top)
 	rotation = 0;
 	time = ITEM_DELAY;
 
-	itens.insert(this);
+	itens.insert (this);
 
-	application->addUpdater(this);
-	screen->addDrawer(ITEM_LAYER, this);
+	application->addUpdater (this);
+	screen->addDrawer (ITEM_LAYER, this);
 }
 
 Item::~Item()
 {
-	application->removeUpdater(this);
-	screen->removeDrawer(ITEM_LAYER, this);
+	application->removeUpdater (this);
+	screen->removeDrawer (ITEM_LAYER, this);
 
 	delete image;
 
-	itens.erase(this);
+	itens.erase (this);
 }
 
 void Item::deleteAll()
 {
-	for (std::set<Item*>::iterator it = itens.begin() ; it != itens.end(); it++ )
+	for (std::set<Item*>::iterator it = itens.begin() ; it != itens.end(); it++)
 	{
-		delete *it;
+		delete *it; // TODO: Dangerous iterator usage. After erase the iterator is invalid so dereferencing it or comparing it with another iterator is invalid.
 	}
 }
 
 void Item::update()
 {
-	left = cos(rotation) * ITEM_RADIUS + axis_x;
-	top = sin(rotation) * ITEM_RADIUS + axis_y;
+	left = cos (rotation) * ITEM_RADIUS + axis_x;
+	top = sin (rotation) * ITEM_RADIUS + axis_y;
 
 	rotation += ITEM_SPEED;
+
 	if (rotation >= 2 * PI) rotation -= 2 * PI;
 
-	if (aircraft->collide(left, top, width, height, true))
+	if (aircraft->collide (left, top, width, height, true))
 	{
 		if (type == 1) aircraft->addLife();
 		else aircraft->addBomb();
+
 		delete this;
 	}
 
 	time--;
+
 	if (time <= 0) delete this;
 }
 
 void Item::draw()
 {
-	screen->blitImage(left, top, image);
+	screen->blitImage (left, top, image);
 }

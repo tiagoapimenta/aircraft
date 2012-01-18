@@ -1,17 +1,17 @@
 #include "aircraft.h"
 
-Aircraft::Aircraft(Application *application, HUD *hud)
+Aircraft::Aircraft (Application *application, HUD *hud)
 {
 	this->application = application;
 	screen = application->getScreen();
 	event = application->getEvent();
 	this->hud = hud;
 
-	aircraft = new Image(IMG_AIRCRAFT);
-	aircraft_left = new Image(IMG_AIRCRAFT_LEFT);
-	aircraft_right = new Image(IMG_AIRCRAFT_RIGHT);
-	fire1 = new Image(IMG_FIRE1);
-	fire2 = new Image(IMG_FIRE2);
+	aircraft = new Image (IMG_AIRCRAFT);
+	aircraft_left = new Image (IMG_AIRCRAFT_LEFT);
+	aircraft_right = new Image (IMG_AIRCRAFT_RIGHT);
+	fire1 = new Image (IMG_FIRE1);
+	fire2 = new Image (IMG_FIRE2);
 
 	width = aircraft->getWidth();
 	height = aircraft->getHeight();
@@ -38,16 +38,16 @@ Aircraft::Aircraft(Application *application, HUD *hud)
 	used_move_left = 0;
 	used_aircraft = aircraft;
 
-	event->addKeyEvent(this);
-	application->addUpdater(this);
-	screen->addDrawer(AIRCRAFT_LAYER, this);
+	event->addKeyEvent (this);
+	application->addUpdater (this);
+	screen->addDrawer (AIRCRAFT_LAYER, this);
 }
 
 Aircraft::~Aircraft()
 {
-	event->removeKeyEvent(this);
-	application->removeUpdater(this);
-	screen->removeDrawer(AIRCRAFT_LAYER, this);
+	event->removeKeyEvent (this);
+	application->removeUpdater (this);
+	screen->removeDrawer (AIRCRAFT_LAYER, this);
 
 	delete aircraft;
 	delete aircraft_left;
@@ -60,8 +60,9 @@ void Aircraft::update()
 {
 	if (animation)
 	{
-		if (top > SCREEN_HEIGHT - height -fire_height - FIRE_OFFSET_Y - AIRCRAFT_POSITION) top--;
+		if (top > SCREEN_HEIGHT - height - fire_height - FIRE_OFFSET_Y - AIRCRAFT_POSITION) top--;
 		else animation = false;
+
 		return;
 	}
 
@@ -70,6 +71,7 @@ void Aircraft::update()
 		left += move_left * AIRCRAFT_SPEED;
 		top += move_top * AIRCRAFT_SPEED;
 	}
+
 	if (left < 0)
 	{
 		left = 0;
@@ -78,6 +80,7 @@ void Aircraft::update()
 	{
 		left = SCREEN_WIDTH - width;
 	}
+
 	if (top < 0)
 	{
 		top = 0;
@@ -89,22 +92,23 @@ void Aircraft::update()
 
 	current_fire = (fire_index / FIRE_LOOP == 0) ? fire1 : fire2;
 	fire_index++;
+
 	if (fire_index >= 2 * FIRE_LOOP) fire_index = 0;
 
 	if (shot_interval > 0) shot_interval--;
-	else if (shooting && shot_interval == 0)
+	else if (shooting && shot_interval == 0 && explosion_time == 0)
 	{
-		new Shot(application, SHOT_TYPE, false, left + width / 2 + move_left * FIRE_OFFSET_X, top, 0, SHOT_SPEED, SHOT_DAMAGE, false);
+		new Shot (application, SHOT_TYPE, false, left + width / 2 + move_left * FIRE_OFFSET_X, top, 0, SHOT_SPEED, SHOT_DAMAGE, false);
 		shot_interval = SHOT_INTERVAL;
 	}
 
 	if (bomb_interval > 0) bomb_interval--;
-	else if (bombing && bomb_interval == 0 && bomb > 0)
+	else if (bombing && bomb_interval == 0 && bomb > 0 && explosion_time == 0)
 	{
-		new Shot(application, -BOMB_TYPE, true, left + width / 2 + move_left * FIRE_OFFSET_X, top, 0, BOMB_SPEED, BOMB_DAMAGE, false);
+		new Shot (application, -BOMB_TYPE, true, left + width / 2 + move_left * FIRE_OFFSET_X, top, 0, BOMB_SPEED, BOMB_DAMAGE, false);
 		bomb_interval = BOMB_INTERVAL;
 		bomb--;
-		hud->setBombs(bomb);
+		hud->setBombs (bomb);
 	}
 
 	if (explosion_time > 0) explosion_time--;
@@ -118,11 +122,11 @@ void Aircraft::draw()
 {
 	if (explosion_time || (ghost_time / GHOST_INTERVAL) % 2 == 1) return;
 
-	screen->blitImage(left, top, used_aircraft);
-	screen->blitImage(left + (width - fire_width) / 2 + used_move_left * FIRE_OFFSET_X, top + height + FIRE_OFFSET_Y, current_fire);
+	screen->blitImage (left, top, used_aircraft);
+	screen->blitImage (left + (width - fire_width) / 2 + used_move_left * FIRE_OFFSET_X, top + height + FIRE_OFFSET_Y, current_fire);
 }
 
-void Aircraft::keyDown(SDLKey key)
+void Aircraft::keyDown (SDLKey key)
 {
 	switch (key) {
 	case SDLK_UP:
@@ -150,28 +154,36 @@ void Aircraft::keyDown(SDLKey key)
 	}
 }
 
-void Aircraft::keyUp(SDLKey key)
+void Aircraft::keyUp (SDLKey key)
 {
 	switch (key) {
 	case SDLK_UP:
+
 		if (move_top < 0) move_top = 0;
+
 		break;
 	case SDLK_DOWN:
+
 		if (move_top > 0) move_top = 0;
+
 		break;
 	case SDLK_LEFT:
+
 		if (move_left < 0)
 		{
 			move_left = 0;
 			current_aircraft = aircraft;
 		}
+
 		break;
 	case SDLK_RIGHT:
+
 		if (move_left > 0)
 		{
 			move_left = 0;
 			current_aircraft = aircraft;
 		}
+
 		break;
 	case SDLK_LCTRL:
 		shooting = false;
@@ -184,29 +196,29 @@ void Aircraft::keyUp(SDLKey key)
 	}
 }
 
-bool Aircraft::collide(int left, int top, int width, int height, bool item)
+bool Aircraft::collide (int left, int top, int width, int height, bool item)
 {
 	return
-	    (item || energy > 0 && ghost_time == 0) &&
-	    left + width >= this->left &&
-	    top + height >= this->top &&
-	    left <= this->left + this->width &&
-	    top <= this->top + this->height;
+		(item || energy > 0 && ghost_time == 0) && // TODO: do something to supress warnning
+		left + width >= this->left &&
+		top + height >= this->top &&
+		left <= this->left + this->width &&
+		top <= this->top + this->height;
 }
 
-void Aircraft::damage(int damage)
+void Aircraft::damage (int damage)
 {
 	if (ghost_time > 0) return;
 
 	energy -= damage;
 
 	if (energy <= 0) explode();
-	else hud->setLifes(energy);
+	else hud->setLifes (energy);
 }
 
 void Aircraft::explode()
 {
-	new Explosion(application, SHOT_EXPLOSION, SHOT_DELAY, 0, left + width / 2, top + height / 2);
+	new Explosion (application, SHOT_EXPLOSION, SHOT_DELAY, 0, left + width / 2, top + height / 2);
 	explosion_time = SHOT_DELAY;
 	ghost_time = GHOST_TIME;
 
@@ -214,24 +226,28 @@ void Aircraft::explode()
 	life--;
 	// TODO: game over if life == 0
 
-	hud->setLifes(energy);
-	hud->setContinues(life);
+	hud->setLifes (energy);
+	hud->setContinues (life);
 }
 
 void Aircraft::addLife()
 {
 	energy++;
+
 	if (energy > AIRCRAFT_LIFES) energy = AIRCRAFT_LIFES;
-	else application->getAudio()->playSound(SND_ITEM);
-	hud->setLifes(energy);
+	else application->getAudio()->playSound (SND_ITEM);
+
+	hud->setLifes (energy);
 }
 
 void Aircraft::addBomb()
 {
 	bomb++;
+
 	if (bomb > AIRCRAFT_BOMBS) bomb = AIRCRAFT_BOMBS;
-	else application->getAudio()->playSound(SND_ITEM);
-	hud->setBombs(bomb);
+	else application->getAudio()->playSound (SND_ITEM);
+
+	hud->setBombs (bomb);
 }
 
 int Aircraft::bestGift()
@@ -239,6 +255,7 @@ int Aircraft::bestGift()
 	int max = 0;
 
 	if (energy < AIRCRAFT_LIFES) max++;
+
 	if (bomb < AIRCRAFT_BOMBS) max++;
 
 	if (max == 0) return 0;

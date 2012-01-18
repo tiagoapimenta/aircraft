@@ -20,18 +20,18 @@ class Font;
 class HUD : public IKeyEventHandleable, public IDrawable
 {
 public:
-	HUD(Application *application);
+	HUD (Application *application);
 	~HUD();
 
 	void draw();
-	void keyDown(SDLKey key);
-	void keyUp(SDLKey key);
+	void keyDown (SDLKey key);
+	void keyUp (SDLKey key);
 
-	void computePoints(int points);
+	void computePoints (int points);
 
-	void setLifes(int lifes);
-	void setContinues(int continues);
-	void setBombs(int bombs);
+	void setLifes (int lifes);
+	void setContinues (int continues);
+	void setBombs (int bombs);
 
 protected:
 private:

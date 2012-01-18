@@ -9,8 +9,8 @@ public:
 	Event();
 
 	bool poll();
-	void addKeyEvent(IKeyEventHandleable *keyEvent);
-	void removeKeyEvent(IKeyEventHandleable *keyEvent);
+	void addKeyEvent (IKeyEventHandleable *keyEvent);
+	void removeKeyEvent (IKeyEventHandleable *keyEvent);
 
 
 protected:

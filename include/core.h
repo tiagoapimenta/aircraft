@@ -10,6 +10,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -35,6 +36,7 @@
 #include "shot.h"
 #include "explosion.h"
 #include "item.h"
+#include "level.h"
 // TODO: boss
 
 #endif

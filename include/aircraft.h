@@ -37,16 +37,16 @@ class Application;
 class Aircraft : public IKeyEventHandleable, public IUpdatable, public IDrawable
 {
 public:
-	Aircraft(Application* application, HUD *hud);
+	Aircraft (Application* application, HUD *hud);
 	~Aircraft();
 
 	void update();
 	void draw();
-	void keyDown(SDLKey key);
-	void keyUp(SDLKey key);
+	void keyDown (SDLKey key);
+	void keyUp (SDLKey key);
 
-	bool collide(int left, int top, int width, int height, bool item = false);
-	void damage(int damage);
+	bool collide (int left, int top, int width, int height, bool item = false);
+	void damage (int damage);
 	void explode();
 	void addLife();
 	void addBomb();

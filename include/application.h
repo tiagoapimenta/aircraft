@@ -19,15 +19,15 @@ public:
 	~Application();
 
 	int gameLoop();
-	void addUpdater(IUpdatable *updater, bool continue_on_pause = false); // or addUpdateListener
-	void removeUpdater(IUpdatable *updater);
+	void addUpdater (IUpdatable *updater, bool continue_on_pause = false); // or addUpdateListener
+	void removeUpdater (IUpdatable *updater);
 	Screen* getScreen();
 	Event* getEvent();
 	Audio* getAudio();
 	World* getWorld();
-	void computePoints(int points);
+	void computePoints (int points);
 	bool isPaused();
-	void pause(bool pause);
+	void pause (bool pause);
 
 protected:
 private:
