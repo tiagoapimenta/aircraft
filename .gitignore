@@ -1,4 +1,5 @@
 bin/*
 .obj/*
+.objs/*
 aircraft.layout
 aircraft.depend

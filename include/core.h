@@ -18,7 +18,7 @@
 #include <SDL/SDL_mixer.h>
 
 #ifndef PI
-#define PI 3.1415926535897932384626433832795
+#define PI 3.1415926535897932384626433832795 // acos(-1.0f)
 #endif
 
 #include "interfaces.h" // It must comes first, I don't know wky it doesn't works if it isn't, even with "class Name;" prototype.
