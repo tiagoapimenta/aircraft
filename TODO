@@ -1,0 +1,2 @@
+* Aplicar Design Pattern parecido com Factory para criação de objetos e substituir listas estáticas;
+* criar métodos close() e chamar para ajustes antes de dar delete nos objetos, deixando no destrutor somente código de liberação de memória.
